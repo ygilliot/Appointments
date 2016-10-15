@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Appointments;
-using Appointments.Controllers;
+using Appointments.Api;
+using Appointments.Api.Controllers;
 
-namespace Appointments.Tests.Controllers
+namespace Appointments.Api.Tests.Controllers
 {
     [TestClass]
     public class HomeControllerTest

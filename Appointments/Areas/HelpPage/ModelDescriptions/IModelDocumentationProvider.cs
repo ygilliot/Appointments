@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Appointments.Areas.HelpPage.ModelDescriptions
+namespace Appointments.Api.Areas.HelpPage.ModelDescriptions
 {
     public interface IModelDocumentationProvider
     {

@@ -13,11 +13,11 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using Appointments.Models;
-using Appointments.Providers;
-using Appointments.Results;
+using Appointments.Api.Models;
+using Appointments.Api.Providers;
+using Appointments.Api.Results;
 
-namespace Appointments.Controllers
+namespace Appointments.Api.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]

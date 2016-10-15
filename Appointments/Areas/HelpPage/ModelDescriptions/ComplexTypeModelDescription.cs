@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 
-namespace Appointments.Areas.HelpPage.ModelDescriptions
+namespace Appointments.Api.Areas.HelpPage.ModelDescriptions
 {
     public class ComplexTypeModelDescription : ModelDescription
     {

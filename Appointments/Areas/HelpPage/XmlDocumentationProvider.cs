@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using System.Xml.XPath;
-using Appointments.Areas.HelpPage.ModelDescriptions;
+using Appointments.Api.Areas.HelpPage.ModelDescriptions;
 
-namespace Appointments.Areas.HelpPage
+namespace Appointments.Api.Areas.HelpPage
 {
     /// <summary>
     /// A custom <see cref="IDocumentationProvider"/> that reads the API documentation from an XML documentation file.

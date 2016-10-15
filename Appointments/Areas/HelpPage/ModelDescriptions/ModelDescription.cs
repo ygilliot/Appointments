@@ -1,6 +1,6 @@
 using System;
 
-namespace Appointments.Areas.HelpPage.ModelDescriptions
+namespace Appointments.Api.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Describes a type model.

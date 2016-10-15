@@ -5,10 +5,10 @@ using System.Net.Http;
 using System.Text;
 using System.Web.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Appointments;
-using Appointments.Controllers;
+using Appointments.Api;
+using Appointments.Api.Controllers;
 
-namespace Appointments.Tests.Controllers
+namespace Appointments.Api.Tests.Controllers
 {
     [TestClass]
     public class ValuesControllerTest

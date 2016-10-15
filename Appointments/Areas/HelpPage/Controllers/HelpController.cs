@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using Appointments.Areas.HelpPage.ModelDescriptions;
-using Appointments.Areas.HelpPage.Models;
+using Appointments.Api.Areas.HelpPage.ModelDescriptions;
+using Appointments.Api.Areas.HelpPage.Models;
 
-namespace Appointments.Areas.HelpPage.Controllers
+namespace Appointments.Api.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

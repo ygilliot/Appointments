@@ -1,4 +1,4 @@
-namespace Appointments.Areas.HelpPage.ModelDescriptions
+namespace Appointments.Api.Areas.HelpPage.ModelDescriptions
 {
     public class KeyValuePairModelDescription : ModelDescription
     {

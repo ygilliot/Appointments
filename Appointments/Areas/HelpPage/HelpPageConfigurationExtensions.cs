@@ -11,10 +11,10 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using Appointments.Areas.HelpPage.ModelDescriptions;
-using Appointments.Areas.HelpPage.Models;
+using Appointments.Api.Areas.HelpPage.ModelDescriptions;
+using Appointments.Api.Areas.HelpPage.Models;
 
-namespace Appointments.Areas.HelpPage
+namespace Appointments.Api.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

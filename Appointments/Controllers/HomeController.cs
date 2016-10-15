@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Appointments.Controllers
+namespace Appointments.Api.Controllers
 {
     public class HomeController : Controller
     {

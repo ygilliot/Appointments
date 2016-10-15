@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Appointments.Models
+namespace Appointments.Api.Models
 {
     // Models returned by AccountController actions.
 

@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Appointments.Controllers
+namespace Appointments.Api.Controllers
 {
     [Authorize]
     public class ValuesController : ApiController

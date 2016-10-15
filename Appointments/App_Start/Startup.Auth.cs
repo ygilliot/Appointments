@@ -8,10 +8,10 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using Appointments.Providers;
-using Appointments.Models;
+using Appointments.Api.Providers;
+using Appointments.Api.Models;
 
-namespace Appointments
+namespace Appointments.Api
 {
     public partial class Startup
     {
