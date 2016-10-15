@@ -1,5 +1,6 @@
 namespace Appointments.Migrations {
     using Api.Models;
+    using Api.Utils;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
@@ -19,9 +20,9 @@ namespace Appointments.Migrations {
             //  to avoid creating duplicate seed data. E.g.
 
             context.Roles.AddOrUpdate(o => o.Name,
-                new Microsoft.AspNet.Identity.EntityFramework.IdentityRole("Admin"),
-                new Microsoft.AspNet.Identity.EntityFramework.IdentityRole("Manager"),
-                new Microsoft.AspNet.Identity.EntityFramework.IdentityRole("Client"));
+                new Microsoft.AspNet.Identity.EntityFramework.IdentityRole(AppRoles.Admin),
+                new Microsoft.AspNet.Identity.EntityFramework.IdentityRole(AppRoles.Manager),
+                new Microsoft.AspNet.Identity.EntityFramework.IdentityRole(AppRoles.Client));
 
             //Init with super admin account
             #if DEBUG
@@ -38,7 +39,7 @@ namespace Appointments.Migrations {
                 userManager.Create(userToInsert, "Password@123");
 
                 var currentUser = userManager.FindByName(userToInsert.UserName);
-                userManager.AddToRole(currentUser.Id, "Admin");
+                userManager.AddToRole(currentUser.Id, AppRoles.Admin);
             }
 #else
             if (!(context.Users.Any(u => u.UserName == "admin@admin.com"))) {
@@ -53,7 +54,7 @@ namespace Appointments.Migrations {
                 userManager.Create(userToInsert, "Password@123");
 
                 var currentUser = userManager.FindByName(userToInsert.UserName);
-                userManager.AddToRole(currentUser.Id, "Admin");
+                userManager.AddToRole(currentUser.Id, AppRoles.Admin);
             }
 #endif
 

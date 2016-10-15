@@ -15,10 +15,20 @@ namespace Appointments.Api
 {
     public partial class Startup
     {
+        /// <summary>
+        /// OAuthOptions
+        /// </summary>
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
 
+        /// <summary>
+        /// Public Client Id
+        /// </summary>
         public static string PublicClientId { get; private set; }
 
+        /// <summary>
+        /// ConfigureAuth
+        /// </summary>
+        /// <param name="app"></param>
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {

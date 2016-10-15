@@ -16,9 +16,13 @@ using Microsoft.Owin.Security.OAuth;
 using Appointments.Api.Models;
 using Appointments.Api.Providers;
 using Appointments.Api.Results;
+using Appointments.Api.Utils;
 
 namespace Appointments.Api.Controllers
 {
+    /// <summary>
+    /// Account Controller
+    /// </summary>
     [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
@@ -26,10 +30,18 @@ namespace Appointments.Api.Controllers
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
 
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
         public AccountController()
         {
         }
 
+        /// <summary>
+        /// Constructor with Parameters
+        /// </summary>
+        /// <param name="userManager">User Manager</param>
+        /// <param name="accessTokenFormat">Format of the Token</param>
         public AccountController(ApplicationUserManager userManager,
             ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
@@ -37,6 +49,9 @@ namespace Appointments.Api.Controllers
             AccessTokenFormat = accessTokenFormat;
         }
 
+        /// <summary>
+        /// User Manager
+        /// </summary>
         public ApplicationUserManager UserManager
         {
             get
@@ -49,8 +64,15 @@ namespace Appointments.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Access Token Format
+        /// </summary>
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
+        /// <summary>
+        /// Get User Info
+        /// </summary>
+        /// <returns></returns>
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
@@ -66,6 +88,10 @@ namespace Appointments.Api.Controllers
             };
         }
 
+        /// <summary>
+        /// Logout
+        /// </summary>
+        /// <returns></returns>
         // POST api/Account/Logout
         [Route("Logout")]
         public IHttpActionResult Logout()
@@ -74,6 +100,12 @@ namespace Appointments.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Manage Infor
+        /// </summary>
+        /// <param name="returnUrl">return url</param>
+        /// <param name="generateState">true: generate state, false: don't</param>
+        /// <returns></returns>
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
         [Route("ManageInfo")]
         public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
@@ -114,6 +146,11 @@ namespace Appointments.Api.Controllers
             };
         }
 
+        /// <summary>
+        /// ChangePassword
+        /// </summary>
+        /// <param name="model">Change Password model</param>
+        /// <returns></returns>
         // POST api/Account/ChangePassword
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
@@ -134,6 +171,11 @@ namespace Appointments.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Set Password
+        /// </summary>
+        /// <param name="model">Set Password model</param>
+        /// <returns></returns>
         // POST api/Account/SetPassword
         [Route("SetPassword")]
         public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
@@ -153,6 +195,11 @@ namespace Appointments.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Add External Login
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         // POST api/Account/AddExternalLogin
         [Route("AddExternalLogin")]
         public async Task<IHttpActionResult> AddExternalLogin(AddExternalLoginBindingModel model)
@@ -191,6 +238,11 @@ namespace Appointments.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Remove Login
+        /// </summary>
+        /// <param name="model">RemoveLogin model</param>
+        /// <returns></returns>
         // POST api/Account/RemoveLogin
         [Route("RemoveLogin")]
         public async Task<IHttpActionResult> RemoveLogin(RemoveLoginBindingModel model)
@@ -220,6 +272,12 @@ namespace Appointments.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Get External Login
+        /// </summary>
+        /// <param name="provider">provider (Google, Facebook, Twitter)</param>
+        /// <param name="error">error</param>
+        /// <returns></returns>
         // GET api/Account/ExternalLogin
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
@@ -277,6 +335,12 @@ namespace Appointments.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Get all External Logins
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <param name="generateState"></param>
+        /// <returns></returns>
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
         [AllowAnonymous]
         [Route("ExternalLogins")]
@@ -318,6 +382,11 @@ namespace Appointments.Api.Controllers
             return logins;
         }
 
+        /// <summary>
+        /// Register
+        /// </summary>
+        /// <param name="model">Register model</param>
+        /// <returns></returns>
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
@@ -337,9 +406,54 @@ namespace Appointments.Api.Controllers
                 return GetErrorResult(result);
             }
 
+            //Assign default role
+            var currentUser = await UserManager.FindByNameAsync(user.UserName);
+            IdentityResult roleResult = UserManager.AddToRole(currentUser.Id, AppRoles.Client);
+
+            if (!roleResult.Succeeded) {
+                return GetErrorResult(roleResult);
+            }
+
             return Ok();
         }
 
+        /// <summary>
+        /// (Admin) Register a user with a particular role
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        // POST api/Account/Register
+        [Authorize(Roles = AppRoles.Admin)]
+        [Route("RegisterWithRole")]
+        public async Task<IHttpActionResult> RegisterWithRole(RegisterWithRoleBindingModel model) {
+            if (!ModelState.IsValid) {
+                return BadRequest(ModelState);
+            }
+
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+
+            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded) {
+                return GetErrorResult(result);
+            }
+
+            //Assign default role
+            var currentUser = await UserManager.FindByNameAsync(user.UserName);
+            IdentityResult roleResult = UserManager.AddToRole(currentUser.Id, model.Role != null ? model.Role : AppRoles.Client);
+
+            if (!roleResult.Succeeded) {
+                return GetErrorResult(roleResult);
+            }
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// RegisterExternal
+        /// </summary>
+        /// <param name="model">RegisterExternal model</param>
+        /// <returns></returns>
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
@@ -365,6 +479,14 @@ namespace Appointments.Api.Controllers
                 return GetErrorResult(result);
             }
 
+            //Assign default role
+            var currentUser = await UserManager.FindByNameAsync(user.UserName);
+            IdentityResult roleResult = UserManager.AddToRole(currentUser.Id, AppRoles.Client);
+
+            if (!roleResult.Succeeded) {
+                return GetErrorResult(roleResult);
+            }
+
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
@@ -373,6 +495,10 @@ namespace Appointments.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Dispose method
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)

@@ -8,9 +8,22 @@ using System.Data.Entity;
 namespace Appointments.Api.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
+
+    /// <summary>
+    /// Application User
+    /// </summary>
     public class ApplicationUser : IdentityUser {
+        /// <summary>
+        /// Contains detailed user information
+        /// </summary>
         public virtual Person Person { get; set; }
 
+        /// <summary>
+        /// Generate UserIdentity Asynchronously
+        /// </summary>
+        /// <param name="manager">user manager</param>
+        /// <param name="authenticationType"></param>
+        /// <returns></returns>
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -20,13 +33,23 @@ namespace Appointments.Api.Models
         }
     }
 
+    /// <summary>
+    /// ApplicationDbContext
+    /// </summary>
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
         
+        /// <summary>
+        /// Creates Db Context
+        /// </summary>
+        /// <returns></returns>
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

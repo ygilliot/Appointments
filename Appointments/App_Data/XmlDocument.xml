@@ -4,6 +4,41 @@
         <name>Appointments.Api</name>
     </assembly>
     <members>
+        <member name="T:Appointments.Api.ApplicationUserManager">
+            <summary>
+            ApplicationUserManager
+            </summary>
+        </member>
+        <member name="M:Appointments.Api.ApplicationUserManager.#ctor(Microsoft.AspNet.Identity.IUserStore{Appointments.Api.Models.ApplicationUser})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="store"></param>
+        </member>
+        <member name="M:Appointments.Api.ApplicationUserManager.Create(Microsoft.AspNet.Identity.Owin.IdentityFactoryOptions{Appointments.Api.ApplicationUserManager},Microsoft.Owin.IOwinContext)">
+            <summary>
+            Create a new User
+            </summary>
+            <param name="options">options</param>
+            <param name="context">owin context</param>
+            <returns></returns>
+        </member>
+        <member name="P:Appointments.Api.Startup.OAuthOptions">
+            <summary>
+            OAuthOptions
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Startup.PublicClientId">
+            <summary>
+            Public Client Id
+            </summary>
+        </member>
+        <member name="M:Appointments.Api.Startup.ConfigureAuth(Owin.IAppBuilder)">
+            <summary>
+            ConfigureAuth
+            </summary>
+            <param name="app"></param>
+        </member>
         <member name="M:Appointments.Api.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
             <summary>
             Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
@@ -481,6 +516,135 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="T:Appointments.Api.Controllers.AccountController">
+            <summary>
+            Account Controller
+            </summary>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AccountController.#ctor">
+            <summary>
+            Default Constructor
+            </summary>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AccountController.#ctor(Appointments.Api.ApplicationUserManager,Microsoft.Owin.Security.ISecureDataFormat{Microsoft.Owin.Security.AuthenticationTicket})">
+            <summary>
+            Constructor with Parameters
+            </summary>
+            <param name="userManager">User Manager</param>
+            <param name="accessTokenFormat">Format of the Token</param>
+        </member>
+        <member name="P:Appointments.Api.Controllers.AccountController.UserManager">
+            <summary>
+            User Manager
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Controllers.AccountController.AccessTokenFormat">
+            <summary>
+            Access Token Format
+            </summary>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AccountController.GetUserInfo">
+            <summary>
+            Get User Info
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AccountController.Logout">
+            <summary>
+            Logout
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AccountController.GetManageInfo(System.String,System.Boolean)">
+            <summary>
+            Manage Infor
+            </summary>
+            <param name="returnUrl">return url</param>
+            <param name="generateState">true: generate state, false: don't</param>
+            <returns></returns>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AccountController.ChangePassword(Appointments.Api.Models.ChangePasswordBindingModel)">
+            <summary>
+            ChangePassword
+            </summary>
+            <param name="model">Change Password model</param>
+            <returns></returns>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AccountController.SetPassword(Appointments.Api.Models.SetPasswordBindingModel)">
+            <summary>
+            Set Password
+            </summary>
+            <param name="model">Set Password model</param>
+            <returns></returns>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AccountController.AddExternalLogin(Appointments.Api.Models.AddExternalLoginBindingModel)">
+            <summary>
+            Add External Login
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AccountController.RemoveLogin(Appointments.Api.Models.RemoveLoginBindingModel)">
+            <summary>
+            Remove Login
+            </summary>
+            <param name="model">RemoveLogin model</param>
+            <returns></returns>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AccountController.GetExternalLogin(System.String,System.String)">
+            <summary>
+            Get External Login
+            </summary>
+            <param name="provider">provider (Google, Facebook, Twitter)</param>
+            <param name="error">error</param>
+            <returns></returns>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AccountController.GetExternalLogins(System.String,System.Boolean)">
+            <summary>
+            Get all External Logins
+            </summary>
+            <param name="returnUrl"></param>
+            <param name="generateState"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AccountController.Register(Appointments.Api.Models.RegisterBindingModel)">
+            <summary>
+            Register
+            </summary>
+            <param name="model">Register model</param>
+            <returns></returns>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AccountController.RegisterWithRole(Appointments.Api.Models.RegisterWithRoleBindingModel)">
+            <summary>
+            (Admin) Register a user with a particular role
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AccountController.RegisterExternal(Appointments.Api.Models.RegisterExternalBindingModel)">
+            <summary>
+            RegisterExternal
+            </summary>
+            <param name="model">RegisterExternal model</param>
+            <returns></returns>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AccountController.Dispose(System.Boolean)">
+            <summary>
+            Dispose method
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="T:Appointments.Api.Controllers.HomeController">
+            <summary>
+            Home Controller
+            </summary>
+        </member>
+        <member name="M:Appointments.Api.Controllers.HomeController.Index">
+            <summary>
+            Index Action
+            </summary>
+            <returns>Home Page</returns>
+        </member>
         <member name="T:Appointments.Api.Controllers.PeopleController">
             <summary>
             People Controller
@@ -491,6 +655,156 @@
             Get all people
             </summary>
             <returns>List of all <see cref="T:Appointments.Api.Models.Person"/> registered </returns>
+        </member>
+        <member name="T:Appointments.Api.Models.AddExternalLoginBindingModel">
+            <summary>
+            AddExternalLoginBindingModel
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.AddExternalLoginBindingModel.ExternalAccessToken">
+            <summary>
+            External Access Token
+            </summary>
+        </member>
+        <member name="T:Appointments.Api.Models.ChangePasswordBindingModel">
+            <summary>
+            ChangePasswordBindingModel
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.ChangePasswordBindingModel.OldPassword">
+            <summary>
+            Old Password
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.ChangePasswordBindingModel.NewPassword">
+            <summary>
+            New Password
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.ChangePasswordBindingModel.ConfirmPassword">
+            <summary>
+            Confirm Password
+            </summary>
+        </member>
+        <member name="T:Appointments.Api.Models.RegisterBindingModel">
+            <summary>
+            RegisterBindingModel
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.RegisterBindingModel.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.RegisterBindingModel.Password">
+            <summary>
+            Password
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.RegisterBindingModel.ConfirmPassword">
+            <summary>
+            Confirm Password
+            </summary>
+        </member>
+        <member name="T:Appointments.Api.Models.RegisterWithRoleBindingModel">
+            <summary>
+            RegisterWithRoleBindingModel
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.RegisterWithRoleBindingModel.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.RegisterWithRoleBindingModel.Password">
+            <summary>
+            Password
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.RegisterWithRoleBindingModel.ConfirmPassword">
+            <summary>
+            Confirm Password
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.RegisterWithRoleBindingModel.Role">
+            <summary>
+            Role: Admin / Manager / Client
+            <see cref="T:Appointments.Api.Utils.AppRoles"/>
+            </summary>
+        </member>
+        <member name="T:Appointments.Api.Models.RegisterExternalBindingModel">
+            <summary>
+            RegisterExternalBindingModel
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.RegisterExternalBindingModel.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="T:Appointments.Api.Models.RemoveLoginBindingModel">
+            <summary>
+            RemoveLoginBindingModel
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.RemoveLoginBindingModel.LoginProvider">
+            <summary>
+            LoginProvider
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.RemoveLoginBindingModel.ProviderKey">
+            <summary>
+            ProviderKey
+            </summary>
+        </member>
+        <member name="T:Appointments.Api.Models.SetPasswordBindingModel">
+            <summary>
+            SetPasswordBindingModel
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.SetPasswordBindingModel.NewPassword">
+            <summary>
+            New Password
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.SetPasswordBindingModel.ConfirmPassword">
+            <summary>
+            Confirm Password
+            </summary>
+        </member>
+        <member name="T:Appointments.Api.Models.ApplicationUser">
+            <summary>
+            Application User
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.ApplicationUser.Person">
+            <summary>
+            Contains detailed user information
+            </summary>
+        </member>
+        <member name="M:Appointments.Api.Models.ApplicationUser.GenerateUserIdentityAsync(Microsoft.AspNet.Identity.UserManager{Appointments.Api.Models.ApplicationUser},System.String)">
+            <summary>
+            Generate UserIdentity Asynchronously
+            </summary>
+            <param name="manager">user manager</param>
+            <param name="authenticationType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Appointments.Api.Models.ApplicationDbContext">
+            <summary>
+            ApplicationDbContext
+            </summary>
+        </member>
+        <member name="M:Appointments.Api.Models.ApplicationDbContext.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Appointments.Api.Models.ApplicationDbContext.Create">
+            <summary>
+            Creates Db Context
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Appointments.Api.Models.ApplicationDbContext.Persons">
             <summary>
@@ -580,6 +894,26 @@
         <member name="P:Appointments.Api.Models.UserAddress.Person">
             <summary>
             Link to User Information
+            </summary>
+        </member>
+        <member name="T:Appointments.Api.Utils.AppRoles">
+            <summary>
+            Application Roles
+            </summary>
+        </member>
+        <member name="F:Appointments.Api.Utils.AppRoles.Admin">
+            <summary>
+            Administrator Role
+            </summary>
+        </member>
+        <member name="F:Appointments.Api.Utils.AppRoles.Manager">
+            <summary>
+            Manager Role
+            </summary>
+        </member>
+        <member name="F:Appointments.Api.Utils.AppRoles.Client">
+            <summary>
+            Client Role
             </summary>
         </member>
     </members>
