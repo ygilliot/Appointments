@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using System.Data.Entity;
 
 namespace Appointments.Api.Models
 {
@@ -30,5 +31,14 @@ namespace Appointments.Api.Models
         {
             return new ApplicationDbContext();
         }
+
+        /// <summary>
+        /// Database set of Persons
+        /// </summary>
+        public DbSet<Person> Persons { get; set; }
+        /// <summary>
+        /// Database set of User Addresses
+        /// </summary>
+        public DbSet<UserAddress> UserAddresses { get; set; }
     }
 }
