@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.OData;
 
 namespace Appointments.Api.Controllers {
     /// <summary>
@@ -28,8 +29,17 @@ namespace Appointments.Api.Controllers {
 
         /// <summary>
         /// Get all people
+        /// This method is Queryable using OData format:
+        /// $expand : Expands related entities inline.
+        /// $filter : Filters the results, based on a Boolean condition.
+        /// $inlinecount : Tells the server to include the total count of matching entities in the response. (Useful for server-side paging.)
+        /// $orderBy : Sorts the results.
+        /// $select : Selects which properties to include in the response.
+        /// $skip : Skips the first n results.
+        /// $top: Returns only the first n the results.
         /// </summary>
         /// <returns>List of all <see cref="Person"/> registered </returns>
+        [EnableQuery]
         [VersionedRoute("api/{version}/People", "1.0")]
         [VersionedRoute("api/People")]
         public IQueryable<PersonDTO> Get() {
