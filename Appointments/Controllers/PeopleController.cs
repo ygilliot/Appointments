@@ -21,6 +21,7 @@ namespace Appointments.Api.Controllers {
         /// Initialize Controller
         /// </summary>
         /// <param name="peopleRepository">people repository</param>
+        ///// <param name="userRepository">user repository</param>
         public PeopleController(IRepository<Person> peopleRepository) {
             this.peopleRepository = peopleRepository;
         }
@@ -33,7 +34,10 @@ namespace Appointments.Api.Controllers {
         [VersionedRoute("api/People")]
         public IQueryable<PersonDTO> Get() {
             return this.peopleRepository.All().Select(p => new PersonDTO() {
-                Id = p.Id,
+                //Id = p.Id,
+                UserName = p.ApplicationUser.UserName,
+                Email = p.ApplicationUser.Email,
+                PhoneNumber = p.ApplicationUser.PhoneNumber,
                 FirstName = p.FirstName,
                 LastName = p.LastName
             });
@@ -47,7 +51,7 @@ namespace Appointments.Api.Controllers {
         [VersionedRoute("api/{version}/People/{username}", "1.0")]
         [VersionedRoute("api/People/{username}")]
         public PersonDTO Get(string username) {
-            Person p = this.peopleRepository.All().FirstOrDefault(o => o.Id == username);
+            Person p = this.peopleRepository.All().FirstOrDefault(o => o.ApplicationUser.UserName == username);
             return p != null ? new PersonDTO(p) : null;
         }
     }

@@ -795,11 +795,6 @@
             Person Simplified model
             </summary>
         </member>
-        <member name="P:Appointments.Api.Models.DTO.PersonDTO.Id">
-            <summary>
-            Person Identifier
-            </summary>
-        </member>
         <member name="P:Appointments.Api.Models.DTO.PersonDTO.Email">
             <summary>
             Email is also identifier
@@ -828,11 +823,6 @@
         <member name="T:Appointments.Api.Models.DTO.PersonExtendedDTO">
             <summary>
             Person with all data
-            </summary>
-        </member>
-        <member name="P:Appointments.Api.Models.DTO.PersonExtendedDTO.Id">
-            <summary>
-            Person Identifier
             </summary>
         </member>
         <member name="P:Appointments.Api.Models.DTO.PersonExtendedDTO.Email">

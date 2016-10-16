@@ -10,10 +10,11 @@ namespace Appointments.Api.Models.DTO {
     public class PersonExtendedDTO {
 
         #region ASP.Net Identity
-        /// <summary>
-        /// Person Identifier
-        /// </summary>
-        public string Id { get; set; }
+        // Don't Show Id for public
+        ///// <summary>
+        ///// Person Identifier
+        ///// </summary>
+        //public string Id { get; set; }
 
         /// <summary>
         /// Email is also identifier
@@ -73,6 +74,29 @@ namespace Appointments.Api.Models.DTO {
         /// Country
         /// </summary>
         public string Country { get; set; }
+        #endregion
+
+        #region Constructor
+        public PersonExtendedDTO() { }
+
+        public PersonExtendedDTO(Person p) {
+            //Id = p.Id;
+            UserName = p.ApplicationUser.UserName;
+            Email = p.ApplicationUser.Email;
+            PhoneNumber = p.ApplicationUser.PhoneNumber;
+            FirstName = p.FirstName;
+            LastName = p.LastName;
+
+            //If Address is available fill model
+            if (p.Address != null) {
+                Address1 = p.Address.Address1;
+                Address2 = p.Address.Address2;
+                City = p.Address.City;
+                ZipCode = p.Address.Zipcode;
+                State = p.Address.State;
+                Country = p.Address.Country;
+            }
+        }
         #endregion
     }
 }

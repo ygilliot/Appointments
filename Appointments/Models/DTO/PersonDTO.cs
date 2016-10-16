@@ -9,13 +9,14 @@ namespace Appointments.Api.Models.DTO {
     /// </summary>
     public class PersonDTO {
         #region ASP.Net Identity
-        /// <summary>
-        /// Person Identifier
-        /// </summary>
-        public string Id { get; set; }
+        // Don't Show Id for public
+        ///// <summary>
+        ///// Person Identifier
+        ///// </summary>
+        //public string Id { get; set; }
 
         /// <summary>
-        /// Email is also identifier
+        /// Email
         /// </summary>
         public string Email { get; set; }
 
@@ -25,7 +26,7 @@ namespace Appointments.Api.Models.DTO {
         public string PhoneNumber { get; set; }
 
         /// <summary>
-        /// User Name
+        /// User Name is also identifier (Email)
         /// </summary>
         public string UserName { get; set; }
         #endregion
@@ -46,7 +47,10 @@ namespace Appointments.Api.Models.DTO {
         public PersonDTO() { }
 
         public PersonDTO(Person p) {
-            Id = p.Id;
+            //Id = p.Id;
+            UserName = p.ApplicationUser.UserName;
+            Email = p.ApplicationUser.Email;
+            PhoneNumber = p.ApplicationUser.PhoneNumber;
             FirstName = p.FirstName;
             LastName = p.LastName;
         }

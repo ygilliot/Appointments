@@ -8,7 +8,7 @@ namespace Appointments.Api.Models {
     /// <summary>
     /// User Personal information
     /// </summary>
-    public class Person {
+    public class Person: TrackedEntityBase {
         /// <summary>
         /// UserName
         /// </summary>

@@ -34,7 +34,7 @@ namespace Appointments.Api.Models {
         /// <summary>
         /// Zip Code
         /// </summary>
-        public int Zipcode { get; set; }
+        public string Zipcode { get; set; }
 
         /// <summary>
         /// State of the Country

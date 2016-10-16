@@ -4,13 +4,17 @@ namespace Appointments.Migrations {
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Data.Entity.Migrations.Model;
+    using System.Data.Entity.SqlServer;
     using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Appointments.Api.Models.ApplicationDbContext> {
         public Configuration() {
             AutomaticMigrationsEnabled = false;
+            SetSqlGenerator("System.Data.SqlClient", new CustomSqlServerMigrationSqlGenerator());
         }
 
         protected override void Seed(Appointments.Api.Models.ApplicationDbContext context) {
@@ -60,5 +64,46 @@ namespace Appointments.Migrations {
 #endif
 
         }
+    }
+
+    internal class CustomSqlServerMigrationSqlGenerator : SqlServerMigrationSqlGenerator {
+        protected override void Generate(AddColumnOperation addColumnOperation) {
+            SetCreatedUtcColumn(addColumnOperation.Column);
+            //SetLastUpdateUtcColumn(addColumnOperation.Column);
+
+            base.Generate(addColumnOperation);
+        }
+
+        protected override void Generate(CreateTableOperation createTableOperation) {
+            SetCreatedUtcColumn(createTableOperation.Columns);
+
+            base.Generate(createTableOperation);
+        }
+
+        private static void SetCreatedUtcColumn(IEnumerable<ColumnModel> columns) {
+            foreach (var columnModel in columns) {
+                SetCreatedUtcColumn(columnModel);
+            }
+        }
+
+        private static void SetCreatedUtcColumn(PropertyModel column) {
+            if (column.Name == "CreatedUtc") {
+                column.DefaultValueSql = "GETUTCDATE()";
+            }
+        }
+
+        //private static void SetLastUpdateUtcColumn(IEnumerable<ColumnModel> columns) {
+        //    foreach (var columnModel in columns) {
+        //        SetLastUpdateUtcColumn(columnModel);
+        //    }
+        //}
+
+        //private static void SetLastUpdateUtcColumn(PropertyModel column) {
+        //    if (column.Name == "LastUpdateUtc") {
+        //        column.DefaultValueSql = "GETUTCDATE()";
+        //    }
+        //}
+
+
     }
 }

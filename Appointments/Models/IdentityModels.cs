@@ -39,7 +39,7 @@ namespace Appointments.Api.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         //uncomment only for running Seed method
-        //public ApplicationDbContext() { }
+        public ApplicationDbContext() { }
 
         /// <summary>
         /// Constructor
