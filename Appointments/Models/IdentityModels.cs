@@ -41,18 +41,21 @@ namespace Appointments.Api.Models
         /// <summary>
         /// Constructor
         /// </summary>
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
+        //public ApplicationDbContext()
+        //    : base("DefaultConnection", throwIfV1Schema: false)
+        //{
+        //}
+        public ApplicationDbContext(string connectionstring)
+    : base(connectionstring, throwIfV1Schema: false) {
         }
-        
+
         /// <summary>
         /// Creates Db Context
         /// </summary>
         /// <returns></returns>
         public static ApplicationDbContext Create()
         {
-            return new ApplicationDbContext();
+            return new ApplicationDbContext("DefaultConnection");
         }
 
         /// <summary>

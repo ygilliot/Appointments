@@ -8,40 +8,44 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Appointments.Api;
 using Appointments.Api.Controllers;
 using Appointments.Api.Models;
+using Appointments.Api.Repositories;
+using Moq;
+using Appointments.Tests.Mocks;
 
-namespace Appointments.Api.Tests.Controllers
-{
+namespace Appointments.Api.Tests.Controllers {
     [TestClass]
-    public class PeopleControllerTest
-    {
+    public class PeopleControllerTest {
         [TestMethod]
-        public void Get()
-        {
+        public void Get() {
+            var repo = new Mock<IRepository<Person>>();
             // Arrange
-            PeopleController controller = new PeopleController();
+            PeopleRepository rep = new PeopleRepository();
+            PeopleController controller = new PeopleController(rep.Repo);
 
             // Act
             IEnumerable<Person> result = controller.Get();
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(1, result.Count());
-            //Assert.AreEqual("value1", result.ElementAt(0));
-            //Assert.AreEqual("value2", result.ElementAt(1));
+            Assert.AreEqual(7, result.Count());
+            Assert.AreEqual("Escobar Gaviria", result.ElementAt(2).LastName);
+            Assert.AreEqual("White", result.ElementAt(3).LastName);
         }
 
-        //[TestMethod]
-        //public void GetById()
-        //{
-        //    // Arrange
-        //    ValuesController controller = new ValuesController();
+        [TestMethod]
+        public void GetById() {
+            var repo = new Mock<IRepository<Person>>();
+            // Arrange
+            PeopleRepository rep = new PeopleRepository();
+            PeopleController controller = new PeopleController(rep.Repo);
 
-        //    // Act
-        //    string result = controller.Get(5);
+            // Act
+            Person result = controller.Get("jesse@pink.man");
 
-        //    // Assert
-        //    Assert.AreEqual("value", result);
-        //}
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Albuquerque", result.Address.City);
+        }
 
         //[TestMethod]
         //public void Post()
