@@ -18,6 +18,7 @@ namespace Appointments.Migrations {
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
+            //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext("DefaultConnection")));
 
             context.Roles.AddOrUpdate(o => o.Name,
                 new Microsoft.AspNet.Identity.EntityFramework.IdentityRole(AppRoles.Admin),
@@ -29,7 +30,7 @@ namespace Appointments.Migrations {
             if (!(context.Users.Any(u => u.UserName == "admin@admin.com"))) {
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
-                var userToInsert = new ApplicationUser { UserName = "admin@admin.com", Email= "admin@admin.com", PhoneNumber = "0612345678",
+                var userToInsert = new ApplicationUser { UserName = "admin@admin.com", Email= "admin@admin.com", EmailConfirmed= true, PhoneNumber = "0612345678",
                     Person = new Person() {
                         Gender = "Mr.",
                         FirstName = "Super",

@@ -38,13 +38,12 @@ namespace Appointments.Api.Models
     /// </summary>
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        //uncomment only for running Seed method
+        //public ApplicationDbContext() { }
+
         /// <summary>
         /// Constructor
         /// </summary>
-        //public ApplicationDbContext()
-        //    : base("DefaultConnection", throwIfV1Schema: false)
-        //{
-        //}
         public ApplicationDbContext(string connectionstring)
     : base(connectionstring, throwIfV1Schema: false) {
         }

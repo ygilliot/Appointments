@@ -18,6 +18,10 @@ namespace Appointments.Api {
     using Microsoft.Owin.Security.DataHandler;
     using Microsoft.Owin.Security.DataHandler.Serializer;
     using Microsoft.Owin.Security.DataHandler.Encoder;
+    using SimpleInjector.Advanced;
+    using Microsoft.Owin;
+    using System.Collections.Generic;
+    using System.Web;
 
     public static class SimpleInjectorWebApiInitializer {
         public static void Initialize(IAppBuilder app) {
@@ -26,14 +30,20 @@ namespace Appointments.Api {
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
             container.Options.AllowOverridingRegistrations = true;
 
-            ApplicationUserManager um = new ApplicationUserManager(new UserStore<ApplicationUser>(new ApplicationDbContext("DefaultConnection")));
+            
+            //container.Register<IAuthenticationManager>(() => AdvancedExtensions.IsVerifying(container) ? new OwinContext(new Dictionary<string, object>()).Authentication : HttpContext.Current.GetOwinContext().Authentication);
 
+            ApplicationUserManager um = new ApplicationUserManager(new UserStore<ApplicationUser>(new ApplicationDbContext("DefaultConnection")));
+            //ApplicationSignInManager sm = new ApplicationSignInManager(um, container.GetInstance<IAuthenticationManager>());
             SecureDataFormat<AuthenticationTicket> sdt = new SecureDataFormat<AuthenticationTicket>(
                 new TicketSerializer(),
                 new DpapiDataProtectionProvider().Create("ASP.NET Identity"),
                 TextEncodings.Base64);
 
             container.Register<AccountController>(() => new AccountController(um, sdt), Lifestyle.Scoped);
+
+            //container.Register<ApplicationSignInManager>(() => new ApplicationSignInManager(um, container.GetInstance<IAuthenticationManager>()), Lifestyle.Scoped);
+            //container.Register<LoginController>(() => new LoginController(um, sm), Lifestyle.Scoped);
             container.Options.AllowOverridingRegistrations = false;
 
             container.RegisterWebApiRequest<ApplicationDbContext>(() => new ApplicationDbContext("DefaultConnection"));

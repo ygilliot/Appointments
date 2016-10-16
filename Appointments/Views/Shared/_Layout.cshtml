@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Appointments.Api.Utils;
+@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -22,7 +24,28 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
+                    @if (User.IsInRole(AppRoles.Admin)) {
+                        <li>@Html.ActionLink("Admin", "Index", "User", new { area = "Admin" }, null)</li>
+                    }
                 </ul>
+                @if (Request.IsAuthenticated) {
+                    using (Html.BeginForm("LogOff", "Login", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" })) {
+                        @Html.AntiForgeryToken()
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href=""> Hello @User.Identity.GetUserName() !</a>
+                            </li>
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                        </ul>
+                    }
+                }
+                else {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Log in", "Index", "Login", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                    </ul>
+                }
+
             </div>
         </div>
     </div>
