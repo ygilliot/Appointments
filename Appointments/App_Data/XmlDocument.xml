@@ -39,6 +39,11 @@
             </summary>
             <param name="app"></param>
         </member>
+        <member name="M:Appointments.Api.WebApiConfig.VersioningConfig">
+            <summary>
+            Config webapi for the versioning
+            </summary>
+        </member>
         <member name="M:Appointments.Api.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
             <summary>
             Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
@@ -785,6 +790,106 @@
             Confirm Password
             </summary>
         </member>
+        <member name="T:Appointments.Api.Models.DTO.PersonDTO">
+            <summary>
+            Person Simplified model
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonDTO.Id">
+            <summary>
+            Person Identifier
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonDTO.Email">
+            <summary>
+            Email is also identifier
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonDTO.PhoneNumber">
+            <summary>
+            Phone Number
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonDTO.UserName">
+            <summary>
+            User Name
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonDTO.FirstName">
+            <summary>
+            First Name
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonDTO.LastName">
+            <summary>
+            Last Name
+            </summary>
+        </member>
+        <member name="T:Appointments.Api.Models.DTO.PersonExtendedDTO">
+            <summary>
+            Person with all data
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonExtendedDTO.Id">
+            <summary>
+            Person Identifier
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonExtendedDTO.Email">
+            <summary>
+            Email is also identifier
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonExtendedDTO.PhoneNumber">
+            <summary>
+            Phone Number
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonExtendedDTO.UserName">
+            <summary>
+            User Name
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonExtendedDTO.FirstName">
+            <summary>
+            First Name
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonExtendedDTO.LastName">
+            <summary>
+            Last Name
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonExtendedDTO.Address1">
+            <summary>
+            First line of Address
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonExtendedDTO.Address2">
+            <summary>
+            Second line of Address
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonExtendedDTO.City">
+            <summary>
+            City
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonExtendedDTO.ZipCode">
+            <summary>
+            Postal Code
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonExtendedDTO.State">
+            <summary>
+            State, if any
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonExtendedDTO.Country">
+            <summary>
+            Country
+            </summary>
+        </member>
         <member name="T:Appointments.Api.Models.ApplicationUser">
             <summary>
             Application User
@@ -1052,6 +1157,11 @@
         <member name="F:Appointments.Api.Utils.AppRoles.Client">
             <summary>
             Client Role
+            </summary>
+        </member>
+        <member name="T:Appointments.Api.Versioning.VersionedRoute">
+            <summary>
+            Provides an attribute route that's restricted to a specific version of the api.
             </summary>
         </member>
     </members>
