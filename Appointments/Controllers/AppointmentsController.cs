@@ -1,4 +1,5 @@
-﻿using Appointments.Api.Models;
+﻿using Appointments.Api.Hubs;
+using Appointments.Api.Models;
 using Appointments.Api.Repositories;
 using Appointments.Api.Utils;
 using Appointments.Api.Utils.Filters;
@@ -18,10 +19,8 @@ namespace Appointments.Api.Controllers
     /// <summary>
     /// Appointments Controller
     /// </summary>
-    /// <typeparam name="CalendarHub">SignalR Hub for Calendar events</typeparam>
     [Authorize]
-    public class AppointmentsController<CalendarHub> : ApiHubController
-    {
+    public class AppointmentsController : ApiHubController<CalendarHub> {
         private readonly IRepository<Appointment> appointmentsRepository;
 
         /// <summary>
@@ -32,6 +31,11 @@ namespace Appointments.Api.Controllers
             this.appointmentsRepository = appointmentsRepository;
         }
 
+        /// <summary>
+        /// Get All Appointments. Method is queryable using OData formats
+        /// Reserved to Admin and Manager roles
+        /// </summary>
+        /// <returns>A collection of Appointments</returns>
         [EnableQuery]
         [Authorize(Roles = AppRoles.Admin +","+ AppRoles.Manager)]
         [VersionedRoute("api/{version}/Appointments", "1.0")]
@@ -40,7 +44,11 @@ namespace Appointments.Api.Controllers
             return appointmentsRepository.All();
         }
 
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
         [EnableQuery]
         [VersionedRoute("api/{version}/Collaboraters/{userName}/Appointments", "1.0")]
         [VersionedRoute("api/Collaboraters/{userName}/Appointments")]
@@ -49,19 +57,18 @@ namespace Appointments.Api.Controllers
         }
 
         [ValidateModel]
-        [VersionedRoute("api/{version}/Collaboraters/{collaboraterId}/Appointments", "1.0")]
-        [VersionedRoute("api/Collaboraters/{collaboraterId}/Appointments")]
-        public Appointment Post(string collaboraterId, Appointment appointment) {
+        [VersionedRoute("api/{version}/Collaboraters/{userName}/Appointments", "1.0")]
+        [VersionedRoute("api/Collaboraters/{userName}/Appointments")]
+        public IHttpActionResult Post(string userName, Appointment appointment) {
             
             //if(ModelState.IsValid)
             appointmentsRepository.Add(appointment);
+            
+            //Notify subscribers
+            var subscribed = Hub.Clients.Group(userName);
+            subscribed.addItem(appointment);
 
-
-            //var subscribed = Hub.Clients.Group(collaboraterId);
-            //subscribed.addItem(appointment);
-
-            //return Ok(appointment);
-            return appointment;
+            return Ok(appointment);
         }
     }
 }

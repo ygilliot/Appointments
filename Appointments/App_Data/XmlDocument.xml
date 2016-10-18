@@ -639,17 +639,30 @@
             </summary>
             <param name="disposing"></param>
         </member>
-        <member name="T:Appointments.Api.Controllers.AppointmentsController`1">
+        <member name="T:Appointments.Api.Controllers.AppointmentsController">
             <summary>
             Appointments Controller
             </summary>
-            <typeparam name="CalendarHub">SignalR Hub for Calendar events</typeparam>
         </member>
-        <member name="M:Appointments.Api.Controllers.AppointmentsController`1.#ctor(Appointments.Api.Repositories.IRepository{Appointments.Api.Models.Appointment})">
+        <member name="M:Appointments.Api.Controllers.AppointmentsController.#ctor(Appointments.Api.Repositories.IRepository{Appointments.Api.Models.Appointment})">
             <summary>
             Initialize Controller
             </summary>
             <param name="appointmentsRepository">repository of appointments</param>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AppointmentsController.Get">
+            <summary>
+            Get All Appointments. Method is queryable using OData formats
+            Reserved to Admin and Manager roles
+            </summary>
+            <returns>A collection of Appointments</returns>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AppointmentsController.Get(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="userName"></param>
+            <returns></returns>
         </member>
         <member name="T:Appointments.Api.Controllers.HomeController">
             <summary>
@@ -832,7 +845,7 @@
         </member>
         <member name="P:Appointments.Api.Models.Appointment.Status">
             <summary>
-            
+            Appointment Status
             </summary>
         </member>
         <member name="P:Appointments.Api.Models.Appointment.StartDate">
@@ -841,6 +854,36 @@
             </summary>
         </member>
         <member name="P:Appointments.Api.Models.Appointment.EndDate">
+            <summary>
+            Appointment start date and time
+            </summary>
+        </member>
+        <member name="T:Appointments.Api.Models.DTO.AppointmentDTO">
+            <summary>
+            Appointment transportation model
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.AppointmentDTO.Collaborater">
+            <summary>
+            Collaborater required for the <see cref="T:Appointments.Api.Models.Appointment"/>
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.AppointmentDTO.Client">
+            <summary>
+            Client asking for an appointment
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.AppointmentDTO.Status">
+            <summary>
+            Appointment Status
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.AppointmentDTO.StartDate">
+            <summary>
+            Appointment start date and time
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.AppointmentDTO.EndDate">
             <summary>
             Appointment start date and time
             </summary>
@@ -1209,6 +1252,11 @@
         <member name="F:Appointments.Api.Utils.AppRoles.Manager">
             <summary>
             Manager Role
+            </summary>
+        </member>
+        <member name="F:Appointments.Api.Utils.AppRoles.Collaborater">
+            <summary>
+            Collaborater Role
             </summary>
         </member>
         <member name="F:Appointments.Api.Utils.AppRoles.Client">

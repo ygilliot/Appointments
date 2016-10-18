@@ -75,7 +75,7 @@ namespace Appointments.Api.Models
                 foreach (var entry in changeSet.Where(c => c.State != EntityState.Unchanged)) {
                     //Update date and User for Tracked Entities
                     entry.Entity.LastUpdateUtc = DateTime.UtcNow;
-                    entry.Entity.UpdaterId = HttpContext.Current.User.Identity.Name;
+                    entry.Entity.UpdaterId = HttpContext.Current?.User?.Identity?.Name;
 
                     //Soft Delete implementation
                     if (entry.State == EntityState.Deleted) {

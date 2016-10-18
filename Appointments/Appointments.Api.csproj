@@ -285,10 +285,15 @@
     <Compile Include="Migrations\201610181613273_Add_UpdaterId_Add_LastUpdateUTC.Designer.cs">
       <DependentUpon>201610181613273_Add_UpdaterId_Add_LastUpdateUTC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610182127219_TrackedEntity_Default_datetime.cs" />
+    <Compile Include="Migrations\201610182127219_TrackedEntity_Default_datetime.Designer.cs">
+      <DependentUpon>201610182127219_TrackedEntity_Default_datetime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\DTO\AppointmentDTO.cs" />
     <Compile Include="Models\DTO\PersonDTO.cs" />
     <Compile Include="Models\DTO\PersonExtendedDTO.cs" />
     <Compile Include="Models\DTO\UserRolesDTO.cs" />
@@ -422,6 +427,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610181613273_Add_UpdaterId_Add_LastUpdateUTC.resx">
       <DependentUpon>201610181613273_Add_UpdaterId_Add_LastUpdateUTC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610182127219_TrackedEntity_Default_datetime.resx">
+      <DependentUpon>201610182127219_TrackedEntity_Default_datetime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

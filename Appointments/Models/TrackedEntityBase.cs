@@ -7,9 +7,10 @@ using System.Web;
 
 namespace Appointments.Api.Models {
     public abstract class TrackedEntityBase {
-        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreatedUtc { get; private set; }
-        
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime LastUpdateUtc { get; set; }
 
         public string UpdaterId { get; set; }

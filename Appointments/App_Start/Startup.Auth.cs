@@ -44,7 +44,7 @@ namespace Appointments.Api {
             // Configure the application for OAuth based flow
             PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions {
-                TokenEndpointPath = new PathString("/Token"),
+                TokenEndpointPath = new PathString("/api/Token"),
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
@@ -68,7 +68,8 @@ namespace Appointments.Api {
             });
 
             // Enable the application to use bearer tokens to authenticate users
-            app.UseOAuthBearerTokens(OAuthOptions);
+            //app.UseOAuthBearerTokens(OAuthOptions);
+            app.UseOAuthAuthorizationServer(OAuthOptions);
             //Needed for SignalR authentication with bearer token
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions {
                 Provider = new ApplicationOAuthTokenProvider(

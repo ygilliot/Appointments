@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -9,7 +10,7 @@ namespace Appointments.Api.Models.DTO {
     /// </summary>
     public class PersonDTO {
         #region ASP.Net Identity
-        // Don't Show Id for public
+        // Don't Show Id to public
         ///// <summary>
         ///// Person Identifier
         ///// </summary>
@@ -28,6 +29,7 @@ namespace Appointments.Api.Models.DTO {
         /// <summary>
         /// User Name is also identifier (Email)
         /// </summary>
+        [Required]
         public string UserName { get; set; }
         #endregion
 
@@ -35,11 +37,13 @@ namespace Appointments.Api.Models.DTO {
         /// <summary>
         /// First Name
         /// </summary>
+        [MaxLength(128)]
         public string FirstName { get; set; }
 
         /// <summary>
         /// Last Name
         /// </summary>
+        [MaxLength(128)]
         public string LastName { get; set; }
         #endregion
 

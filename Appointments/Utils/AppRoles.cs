@@ -19,6 +19,11 @@ namespace Appointments.Api.Utils {
         public const string Manager = "Manager";
 
         /// <summary>
+        /// Collaborater Role
+        /// </summary>
+        public const string Collaborater = "Collaborater";
+
+        /// <summary>
         /// Client Role
         /// </summary>
         public const string Client = "Client";

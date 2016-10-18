@@ -7,17 +7,15 @@ using System.Web;
 using System.Web.Http;
 
 namespace Appointments.Api.Controllers {
-    public class ApiHubController {
-        public abstract class ApiControllerWithHub<THub> : ApiController
-        where THub : IHub {
-            Lazy<IHubContext> hub = new Lazy<IHubContext>(
-                () => GlobalHost.ConnectionManager.GetHubContext<THub>()
-            );
+    public abstract class ApiHubController<THub> : ApiController
+    where THub : IHub {
+        Lazy<IHubContext> hub = new Lazy<IHubContext>(
+            () => GlobalHost.ConnectionManager.GetHubContext<THub>()
+        );
 
-            protected IHubContext Hub {
-                get { return hub.Value; }
-            }
-            
+        protected IHubContext Hub {
+            get { return hub.Value; }
         }
+
     }
 }

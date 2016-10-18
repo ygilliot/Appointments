@@ -25,7 +25,7 @@ namespace Appointments.Api.Models {
         public Person Client { get; set; }
 
         /// <summary>
-        /// 
+        /// Appointment Status
         /// </summary>
         public AppointmentStatus Status { get; set; }
 

@@ -27,10 +27,12 @@ namespace Appointments.Migrations {
             context.Roles.AddOrUpdate(o => o.Name,
                 new Microsoft.AspNet.Identity.EntityFramework.IdentityRole(AppRoles.Admin),
                 new Microsoft.AspNet.Identity.EntityFramework.IdentityRole(AppRoles.Manager),
+                new Microsoft.AspNet.Identity.EntityFramework.IdentityRole(AppRoles.Collaborater),
                 new Microsoft.AspNet.Identity.EntityFramework.IdentityRole(AppRoles.Client));
 
+            #region Users
             //Init with super admin account
-            #if DEBUG
+#if DEBUG
             if (!(context.Users.Any(u => u.UserName == "admin@admin.com"))) {
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
@@ -45,6 +47,74 @@ namespace Appointments.Migrations {
 
                 var currentUser = userManager.FindByName(userToInsert.UserName);
                 userManager.AddToRole(currentUser.Id, AppRoles.Admin);
+            }
+
+            if (!(context.Users.Any(u => u.UserName == "manager@store.com"))) {
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+                var userToInsert = new ApplicationUser {
+                    UserName = "manager@store.com",
+                    Email = "manager@store.com",
+                    EmailConfirmed = true,
+                    PhoneNumber = "0612345678",
+                    Person = new Person() {
+                        Gender = "Ms.",
+                        FirstName = "Manager",
+                        LastName = "Test"
+                    }
+                };
+                userManager.Create(userToInsert, "Password@123");
+
+                var currentUser = userManager.FindByName(userToInsert.UserName);
+                userManager.AddToRole(currentUser.Id, AppRoles.Manager);
+            }
+
+            if (!(context.Users.Any(u => u.UserName == "collaborater@store.com"))) {
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+                var userToInsert = new ApplicationUser {
+                    UserName = "collaborater@store.com",
+                    Email = "collaborater@store.com",
+                    EmailConfirmed = true,
+                    PhoneNumber = "0612345678",
+                    Person = new Person() {
+                        Gender = "Mr.",
+                        FirstName = "Collaborater",
+                        LastName = "Test"
+                    }
+                };
+                userManager.Create(userToInsert, "Password@123");
+
+                var currentUser = userManager.FindByName(userToInsert.UserName);
+                userManager.AddToRole(currentUser.Id, AppRoles.Collaborater);
+            }
+
+            if (!(context.Users.Any(u => u.UserName == "john.doe@client.com"))) {
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+                var userToInsert = new ApplicationUser {
+                    UserName = "john.doe@client.com",
+                    Email = "john.doe@client.com",
+                    EmailConfirmed = true,
+                    PhoneNumber = "0612345678",
+                    Person = new Person() {
+                        Gender = "Mr.",
+                        FirstName = "John",
+                        LastName = "Doe",
+                        Address = new UserAddress() {
+                            Address1 = "CENTER FOR FINANCIAL ASSISTANCE TO DEPOSED NIGERIAN ROYALTY",
+                            Address2 = "421 E DRACHMAN",
+                            City = "TUCSON",
+                            State = "AZ",
+                            Zipcode = "85705",
+                            Country = "United States"
+                        }
+                    }
+                };
+                userManager.Create(userToInsert, "Password@123");
+
+                var currentUser = userManager.FindByName(userToInsert.UserName);
+                userManager.AddToRole(currentUser.Id, AppRoles.Collaborater);
             }
 #else
             if (!(context.Users.Any(u => u.UserName == "admin@admin.com"))) {
@@ -62,7 +132,27 @@ namespace Appointments.Migrations {
                 userManager.AddToRole(currentUser.Id, AppRoles.Admin);
             }
 #endif
+            #endregion
 
+            #region Appointments
+#if DEBUG
+            context.Appointments.AddOrUpdate(o => new { o.UpdaterId },
+                new Appointment() {
+                    Client = context.Users.FirstOrDefault(u => u.UserName == "john.doe@client.com").Person,
+                    Collaborater = context.Users.FirstOrDefault(u => u.UserName == "collaborater@store.com").Person,
+                    StartDate = DateTime.UtcNow,
+                    EndDate = DateTime.UtcNow.AddHours(1),
+                    UpdaterId = "admin@admin.com"
+                },
+                new Appointment() {
+                    Client = context.Users.FirstOrDefault(u => u.UserName == "john.doe@client.com").Person,
+                    Collaborater = context.Users.FirstOrDefault(u => u.UserName == "manager@store.com").Person,
+                    StartDate = DateTime.UtcNow.AddDays(1),
+                    EndDate = DateTime.UtcNow.AddDays(1).AddHours(1),
+                    UpdaterId = "john.doe@client.com"
+                });
+            #endif
+            #endregion
         }
     }
 
