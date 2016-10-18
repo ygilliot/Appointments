@@ -65,5 +65,10 @@ namespace Appointments.Api.Models
         /// Database set of User Addresses
         /// </summary>
         public DbSet<UserAddress> UserAddresses { get; set; }
+
+        /// <summary>
+        /// Database set of Appointments
+        /// </summary>
+        public DbSet<Appointment> Appointments { get; set; }
     }
 }

@@ -11,6 +11,7 @@ using Appointments.Api.Models;
 using Appointments.Api.Repositories;
 using Moq;
 using Appointments.Tests.Mocks;
+using Appointments.Api.Models.DTO;
 
 namespace Appointments.Api.Tests.Controllers {
     [TestClass]
@@ -23,7 +24,7 @@ namespace Appointments.Api.Tests.Controllers {
             PeopleController controller = new PeopleController(rep.Repo);
 
             // Act
-            IEnumerable<Person> result = controller.Get();
+            IEnumerable<PersonDTO> result = controller.Get();
 
             // Assert
             Assert.IsNotNull(result);
@@ -40,11 +41,11 @@ namespace Appointments.Api.Tests.Controllers {
             PeopleController controller = new PeopleController(rep.Repo);
 
             // Act
-            Person result = controller.Get("jesse@pink.man");
+            PersonExtendedDTO result = controller.Get("jesse@pink.man");
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual("Albuquerque", result.Address.City);
+            Assert.AreEqual("Albuquerque", result.City);
         }
 
         //[TestMethod]

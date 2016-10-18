@@ -60,9 +60,9 @@ namespace Appointments.Api.Controllers {
         /// <returns></returns>
         [VersionedRoute("api/{version}/People/{username}", "1.0")]
         [VersionedRoute("api/People/{username}")]
-        public PersonDTO Get(string username) {
+        public PersonExtendedDTO Get(string username) {
             Person p = this.peopleRepository.All().FirstOrDefault(o => o.ApplicationUser.UserName == username);
-            return p != null ? new PersonDTO(p) : null;
+            return p != null ? new PersonExtendedDTO(p) : null;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Appointments.Api {
         public void Configuration(IAppBuilder app) {
             SimpleInjectorWebApiInitializer.Initialize(app);
             ConfigureAuth(app);
+            app.MapSignalR();
         }
     }
 }

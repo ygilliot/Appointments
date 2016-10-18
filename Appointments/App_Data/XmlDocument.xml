@@ -639,6 +639,18 @@
             </summary>
             <param name="disposing"></param>
         </member>
+        <member name="T:Appointments.Api.Controllers.AppointmentsController`1">
+            <summary>
+            Appointments Controller
+            </summary>
+            <typeparam name="CalendarHub">SignalR Hub for Calendar events</typeparam>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AppointmentsController`1.#ctor(Appointments.Api.Repositories.IRepository{Appointments.Api.Models.Appointment})">
+            <summary>
+            Initialize Controller
+            </summary>
+            <param name="appointmentsRepository">repository of appointments</param>
+        </member>
         <member name="T:Appointments.Api.Controllers.HomeController">
             <summary>
             Home Controller
@@ -798,6 +810,41 @@
             Confirm Password
             </summary>
         </member>
+        <member name="T:Appointments.Api.Models.Appointment">
+            <summary>
+            User Personal information
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.Appointment.Id">
+            <summary>
+            Appointment Identifier
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.Appointment.Collaborater">
+            <summary>
+            Collaborater required for the <see cref="T:Appointments.Api.Models.Appointment"/>
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.Appointment.Client">
+            <summary>
+            Client asking for an appointment
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.Appointment.Status">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.Appointment.StartDate">
+            <summary>
+            Appointment start date and time
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.Appointment.EndDate">
+            <summary>
+            Appointment start date and time
+            </summary>
+        </member>
         <member name="T:Appointments.Api.Models.DTO.PersonDTO">
             <summary>
             Person Simplified model
@@ -932,6 +979,11 @@
             Database set of User Addresses
             </summary>
         </member>
+        <member name="P:Appointments.Api.Models.ApplicationDbContext.Appointments">
+            <summary>
+            Database set of Appointments
+            </summary>
+        </member>
         <member name="T:Appointments.Api.Models.Person">
             <summary>
             User Personal information
@@ -1011,6 +1063,13 @@
             <summary>
             Link to User Information
             </summary>
+        </member>
+        <member name="M:Appointments.Api.Providers.ApplicationOAuthTokenProvider.#ctor(System.Func{Microsoft.Owin.IOwinRequest,System.String}[])">
+            <summary>
+            By Default the Token will be searched for on the "Authorization" header.
+            <para> pass additional getters that might return a token string</para>
+            </summary>
+            <param name="locations"></param>
         </member>
         <member name="P:Appointments.Api.Repositories.GenericRepository`1.Context">
             <summary>
