@@ -4,6 +4,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration;
+using EntityFramework.DynamicFilters;
+using System.Linq;
+using System;
+using System.Web;
 
 namespace Appointments.Api.Models
 {
@@ -55,6 +60,31 @@ namespace Appointments.Api.Models
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext("DefaultConnection");
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+            //Prevent retreiving Soft Deleted items from contxt
+            modelBuilder.Filter(nameof(TrackedEntityBase.IsDeleted), (TrackedEntityBase d) => d.IsDeleted, false);
+            base.OnModelCreating(modelBuilder);
+        }
+
+        public override int SaveChanges() {
+            var changeSet = ChangeTracker.Entries<TrackedEntityBase>();
+
+            if (changeSet != null) {
+                foreach (var entry in changeSet.Where(c => c.State != EntityState.Unchanged)) {
+                    //Update date and User for Tracked Entities
+                    entry.Entity.LastUpdateUtc = DateTime.UtcNow;
+                    entry.Entity.UpdaterId = HttpContext.Current.User.Identity.Name;
+
+                    //Soft Delete implementation
+                    if (entry.State == EntityState.Deleted) {
+                        entry.Entity.IsDeleted = true;
+                        entry.State = EntityState.Modified;
+                    }
+                }
+            }
+            return base.SaveChanges();
         }
 
         /// <summary>

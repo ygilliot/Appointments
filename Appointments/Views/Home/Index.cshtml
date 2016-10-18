@@ -1,14 +1,126 @@
 ﻿<div class="jumbotron">
-    <h1>Appointments API</h1>
+    <h1><img src="~/Content/Images/calendar-icon.png" /> Appointments API</h1>
     <p class="lead">This website hosts the API dedicated to Appointments functionnalities. You can read the full API documentation by navigating API menu.</p>
 </div>
-<div class="row">
-    <h2>Release notes:</h2>
+<div id="release-notes">
+    <h2>Release notes (semver):</h2>
     <blockquote style="border-left-color:#4cae4c">
-        <h3>0.0.161015 <small>2016-10-15</small></h3>
-        <p>First <strong>Alpha release</strong>. Provides functionalities to register and authenticate.</p>
+        <h3>0.2.0 <small>2016-10-18</small></h3>
+        <p>
+            Provides functionalities in API for SignalR users.<br />
+            Versionning support : format /api/v{version}/{controller}/{action}<br/>
+        </p>
         <ul>
-            <li><strong>Account Controller</strong> Initial implementation.</li>
+            <li><strong>People Controller</strong> Initial implementation.</li>
+            <li><strong>Appointment Controller</strong> Initial implementation. Actions trigger SignalR Notifications.</li>
+            <li><strong>Calendar Hub</strong> Initial implementation.</li>
         </ul>
     </blockquote>
+
+    <blockquote>
+        <h3>0.1.0 <small>2016-10-15</small></h3>
+        <p>First <strong>Pre release</strong>. Provides functionalities to register and authenticate.</p>
+        <ul>
+            <li><strong>Account Controller</strong> Initial implementation. SignalR Hub Subscribe and Unsubscribe methods</li>
+        </ul>
+    </blockquote>
+</div>
+<div id="authentication">
+    <h2>Authentication</h2>
+    <span class="lead">Appointments API supports OAuth Bearer Token authentication.</span>
+    <p>
+        To connect the API with your webApp use the following url (from root) to start authentication (POST): <a href="">/Token</a><br/>
+        In the body of your request set the following parameters:
+        <ul>
+            <li><strong>grant_type:</strong> password</li>
+            <li><strong>username:</strong> {your username}</li>
+            <li><strong>password:</strong> {your password}</li>
+        </ul>
+    </p>
+    <p>
+        In return, you will receive a token in the response using the following pattern:<br/>
+        <pre>
+{
+  "access_token": "{your token}",
+  "token_type": "bearer",
+  "exipres_in": 99999,
+  "userName": "{your username}"
+}</pre>
+    </p>
+    <p>
+        Then in your API calls you'll have to set the token in your requests header.<br />
+        In Authorization header put the token using the following pattern:<br />
+        <pre>Authorization: Bearer {your token}</pre>
+    </p>
+
+</div>
+<div id="http-status-guidelines">
+    <h2>HTTP Status Guidelines</h2>
+    <table class="table-bordered">
+        <thead>
+            <tr>
+                <td class="col-xs-2">Code</td>
+                <td class="col-xs-3">Description</td>
+                <td class="col-xs-7">What it really means for a client of the Web API</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>200</td>
+                <td>OK</td>
+                <td>
+                    It worked!
+                </td>
+            </tr>
+            <tr>
+                <td>201</td>
+                <td>Created</td>
+                <td>
+                    The resource was created OK!
+                </td>
+            </tr>
+            <tr>
+                <td>304</td>
+                <td>Not Modified</td>
+                <td>
+                    The client can use the cached version of this resource, because nothing has changed.
+                </td>
+            </tr>
+            <tr>
+                <td>400</td>
+                <td>Bad Request</td>
+                <td>
+                    The client did something wrong. The request has bad syntax or cannot be fulfilled.
+                </td>
+            </tr>
+            <tr>
+                <td>401</td>
+                <td>Not Authorized</td>
+                <td>
+                    The Web API is requesting the client to authenticate.
+                </td>
+            </tr>
+            <tr>
+                <td>403</td>
+                <td>Forbidden</td>
+                <td>
+                    The server understood the request, but is refusing to fulfill it due to restrictions in the client's authorization. Do not try again.
+                </td>
+            </tr>
+            <tr>
+                <td>404</td>
+                <td>Not Found</td>
+                <td>
+                    The resource was not found. There is nothing on that endpoint URI.
+                </td>
+            </tr>
+            <tr>
+                <td>500</td>
+                <td>Internal Server Error</td>
+                <td>
+                    The author of the service did something wrong. Something went bad on the server. (IOW: the Web API is fucked up)
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

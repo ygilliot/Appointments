@@ -69,7 +69,6 @@ namespace Appointments.Migrations {
     internal class CustomSqlServerMigrationSqlGenerator : SqlServerMigrationSqlGenerator {
         protected override void Generate(AddColumnOperation addColumnOperation) {
             SetCreatedUtcColumn(addColumnOperation.Column);
-            //SetLastUpdateUtcColumn(addColumnOperation.Column);
 
             base.Generate(addColumnOperation);
         }
@@ -87,22 +86,10 @@ namespace Appointments.Migrations {
         }
 
         private static void SetCreatedUtcColumn(PropertyModel column) {
-            if (column.Name == "CreatedUtc") {
+            if (column.Name == "CreatedUtc" || column.Name == "LastUpdateUtc") {
                 column.DefaultValueSql = "GETUTCDATE()";
             }
         }
-
-        //private static void SetLastUpdateUtcColumn(IEnumerable<ColumnModel> columns) {
-        //    foreach (var columnModel in columns) {
-        //        SetLastUpdateUtcColumn(columnModel);
-        //    }
-        //}
-
-        //private static void SetLastUpdateUtcColumn(PropertyModel column) {
-        //    if (column.Name == "LastUpdateUtc") {
-        //        column.DefaultValueSql = "GETUTCDATE()";
-        //    }
-        //}
 
 
     }

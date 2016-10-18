@@ -9,8 +9,11 @@ namespace Appointments.Api.Models {
     public abstract class TrackedEntityBase {
         [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreatedUtc { get; private set; }
+        
+        public DateTime LastUpdateUtc { get; set; }
 
-        //[Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        //public DateTime LastUpdateUtc { get { return DateTime.UtcNow; } private set { } }
+        public string UpdaterId { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

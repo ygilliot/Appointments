@@ -17,6 +17,7 @@ namespace Appointments.Api.Controllers {
             protected IHubContext Hub {
                 get { return hub.Value; }
             }
+            
         }
     }
 }

@@ -50,6 +50,10 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework.DynamicFilters, Version=2.4.0.0, Culture=neutral, PublicKeyToken=146423a1b8d60775, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.DynamicFilters.2.4.0\lib\net40\EntityFramework.DynamicFilters.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
       <Private>True</Private>
@@ -252,6 +256,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -276,6 +281,10 @@
     <Compile Include="Migrations\201610180011317_Add_Appointments_Add_Hub.Designer.cs">
       <DependentUpon>201610180011317_Add_Appointments_Add_Hub.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610181613273_Add_UpdaterId_Add_LastUpdateUTC.cs" />
+    <Compile Include="Migrations\201610181613273_Add_UpdaterId_Add_LastUpdateUTC.Designer.cs">
+      <DependentUpon>201610181613273_Add_UpdaterId_Add_LastUpdateUTC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -295,6 +304,7 @@
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\AppRoles.cs" />
+    <Compile Include="Utils\Filters\ValidateModelAttribute.cs" />
     <Compile Include="Utils\Hub\ApiHubController.cs" />
     <Compile Include="Utils\Versioning\TypedJsonMediaTypeFormatter.cs" />
     <Compile Include="Utils\Versioning\TypedXmlMediaTypeFormatter.cs" />
@@ -309,6 +319,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\calendar-icon.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -389,6 +400,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Appointment\" />
   </ItemGroup>
   <ItemGroup>
@@ -407,6 +419,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610180011317_Add_Appointments_Add_Hub.resx">
       <DependentUpon>201610180011317_Add_Appointments_Add_Hub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610181613273_Add_UpdaterId_Add_LastUpdateUTC.resx">
+      <DependentUpon>201610181613273_Add_UpdaterId_Add_LastUpdateUTC.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

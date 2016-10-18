@@ -21,6 +21,8 @@ namespace Appointments.Api
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            //uncomment to Validate Model (ModelState.IsValid) on all actions of all controllers
+            //config.Filters.Add(new ValidateModelAttribute());
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -39,6 +41,10 @@ namespace Appointments.Api
                 defaults: new { id = RouteParameter.Optional },
                 constraints: new { version = new VersionConstraint() } // Add version contraint here to force resolving only supported versions
             );
+
+            //Format outputed objects in CamelCase
+            var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
+            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
 
         /// <summary>

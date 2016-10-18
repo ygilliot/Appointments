@@ -17,12 +17,15 @@ using Appointments.Api.Models;
 using Appointments.Api.Providers;
 using Appointments.Api.Results;
 using Appointments.Api.Utils;
+using System.Web.Http.Description;
 
 namespace Appointments.Api.Controllers
 {
     /// <summary>
     /// Account Controller
     /// </summary>
+    //We don't want account controller to be explorable
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController

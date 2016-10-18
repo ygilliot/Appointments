@@ -5,6 +5,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -22,7 +24,15 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                    @*<li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>*@
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Home/Index#release-notes">Release notes</a></li>
+                            <li><a href="/Home/Index#authentication">Authentication</a></li>
+                            <li><a href="/Home/Index#http-status-guidelines">HTTP Status guidelines</a></li>
+                        </ul>
+                    </li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
                     @if (User.IsInRole(AppRoles.Admin)) {
                         <li>@Html.ActionLink("Admin", "Index", "User", new { area = "Admin" }, null)</li>
