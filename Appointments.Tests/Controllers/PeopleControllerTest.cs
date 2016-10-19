@@ -12,6 +12,7 @@ using Appointments.Api.Repositories;
 using Moq;
 using Appointments.Tests.Mocks;
 using Appointments.Api.Models.DTO;
+using System.Web.Http.Results;
 
 namespace Appointments.Api.Tests.Controllers {
     [TestClass]
@@ -39,13 +40,17 @@ namespace Appointments.Api.Tests.Controllers {
             // Arrange
             PeopleRepository rep = new PeopleRepository();
             PeopleController controller = new PeopleController(rep.Repo);
+            controller.Request = new HttpRequestMessage();
+            controller.Configuration = new HttpConfiguration();
 
             // Act
-            PersonExtendedDTO result = controller.Get("jesse@pink.man");
+            IHttpActionResult result = controller.Get("jesse@pink.man");
+            var contentResult = result as OkNegotiatedContentResult<PersonExtendedDTO>;
 
             // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual("Albuquerque", result.City);
+            Assert.IsNotNull(contentResult);
+            Assert.IsNotNull(contentResult.Content);
+            Assert.AreEqual("Albuquerque", contentResult.Content.City);
         }
 
         //[TestMethod]

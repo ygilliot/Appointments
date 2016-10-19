@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Appointments.Api.Models.DTO {
+namespace Appointments.Api.Areas.Admin.Models {
         public class ExpandedUserDTO {
             [Key]
             [Display(Name = "User Name")]

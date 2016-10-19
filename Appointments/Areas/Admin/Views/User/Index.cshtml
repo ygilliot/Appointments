@@ -1,7 +1,46 @@
-﻿
+﻿@model X.PagedList.IPagedList<Appointments.Api.Areas.Admin.Models.ExpandedUserDTO>
+@using X.PagedList.Mvc;
+@using X.PagedList;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css"/>
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Welcome oh mighty admin!!</h2>
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class ="btn btn-default"})
+    @Html.ActionLink("Edit Roles", "ViewAllRoles", null, new { @class = "btn btn-default" })
+</p>
+<br/>
 
+@using(Html.BeginForm("Index","User", FormMethod.Get)) {
+    <div class="form-group">
+        <label>Search:</label>
+        @Html.TextBox("searchStringUserNameOrEmail", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search"/>
+    </div>
+}
+<br/>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Locked Out</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in ViewBag.ExpandedUsers) {
+        <tr>
+            <td>@item.Email</td>
+            <td>@item.LockoutEndDateUtc</td>
+            <td>
+                @Html.ActionLink("Edit","EditUser", new { userName = item.UserName}) |
+                @if(item.UserName.ToLower() != this.User.Identity.Name.ToLower()) {
+                    @Html.ActionLink("Delete","DeleteUser", new { userName = item.UserName}, new { onclick ="return confirm('Are you sure you wish to delete this user?');" })
+                }
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedListPager((IPagedList)ViewBag.ExpandedUsers, page => Url.Action("Index", new { page }))

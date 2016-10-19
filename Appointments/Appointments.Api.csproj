@@ -166,6 +166,14 @@
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="X.PagedList, Version=5.3.0.21888, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\X.PagedList.5.3.0.5300\lib\portable-net45+wp8+win8\X.PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="X.PagedList.Mvc, Version=5.3.0.21889, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\X.PagedList.Mvc.5.3.0.5300\lib\net46\X.PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
@@ -256,7 +264,6 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -289,6 +296,10 @@
     <Compile Include="Migrations\201610182127219_TrackedEntity_Default_datetime.Designer.cs">
       <DependentUpon>201610182127219_TrackedEntity_Default_datetime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610191229208_Appointments_foreign_keys.cs" />
+    <Compile Include="Migrations\201610191229208_Appointments_foreign_keys.Designer.cs">
+      <DependentUpon>201610191229208_Appointments_foreign_keys.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -296,7 +307,7 @@
     <Compile Include="Models\DTO\AppointmentDTO.cs" />
     <Compile Include="Models\DTO\PersonDTO.cs" />
     <Compile Include="Models\DTO\PersonExtendedDTO.cs" />
-    <Compile Include="Models\DTO\UserRolesDTO.cs" />
+    <Compile Include="Areas\Admin\Models\UserRolesDTO.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\TrackedEntityBase.cs" />
@@ -325,6 +336,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\calendar-icon.png" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -404,9 +416,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Appointment\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -430,6 +439,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610182127219_TrackedEntity_Default_datetime.resx">
       <DependentUpon>201610182127219_TrackedEntity_Default_datetime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610191229208_Appointments_foreign_keys.resx">
+      <DependentUpon>201610191229208_Appointments_foreign_keys.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

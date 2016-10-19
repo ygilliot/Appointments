@@ -1,6 +1,7 @@
 ﻿using Appointments.Api.Models;
 using Appointments.Api.Models.DTO;
 using Appointments.Api.Repositories;
+using Appointments.Api.Utils;
 using Appointments.Api.Versioning;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,7 @@ namespace Appointments.Api.Controllers {
         /// </summary>
         /// <returns>List of all <see cref="Person"/> registered </returns>
         [EnableQuery]
+        [Authorize(Roles = AppRoles.Admin + "," + AppRoles.Manager)]
         [VersionedRoute("api/{version}/People", "1.0")]
         [VersionedRoute("api/People")]
         public IQueryable<PersonDTO> Get() {
@@ -58,11 +60,15 @@ namespace Appointments.Api.Controllers {
         /// </summary>
         /// <param name="username">email</param>
         /// <returns></returns>
+        [Authorize(Roles = AppRoles.Admin + "," + AppRoles.Manager + "," + AppRoles.Collaborater)]
         [VersionedRoute("api/{version}/People/{username}", "1.0")]
         [VersionedRoute("api/People/{username}")]
-        public PersonExtendedDTO Get(string username) {
+        public IHttpActionResult Get(string username) {
             Person p = this.peopleRepository.All().FirstOrDefault(o => o.ApplicationUser.UserName == username);
-            return p != null ? new PersonExtendedDTO(p) : null;
+            if (p != null)
+                return Ok(new PersonExtendedDTO(p));
+
+            return NotFound();
         }
     }
 }

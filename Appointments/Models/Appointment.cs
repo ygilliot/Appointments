@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -14,16 +15,20 @@ namespace Appointments.Api.Models {
         /// </summary>
         public long Id { get; set; }
 
+        [ForeignKey("Collaborater")]
+        public string CollaboraterId { get; set; }
         /// <summary>
         /// Collaborater required for the <see cref="Appointment"/>
         /// </summary>
-        public Person Collaborater { get; set; }
+        public virtual Person Collaborater { get; set; }
 
+        [ForeignKey("Client")]
+        public string ClientId { get; set; }
         /// <summary>
         /// Client asking for an appointment
         /// </summary>
-        public Person Client { get; set; }
-
+        public virtual Person Client { get; set; }
+        
         /// <summary>
         /// Appointment Status
         /// </summary>
