@@ -659,10 +659,18 @@
         </member>
         <member name="M:Appointments.Api.Controllers.AppointmentsController.Get(System.String)">
             <summary>
-            
+            Get all appointments of a particular collaborater
             </summary>
-            <param name="userName"></param>
+            <param name="userName">collaborater username</param>
             <returns></returns>
+        </member>
+        <member name="M:Appointments.Api.Controllers.AppointmentsController.Post(System.String,Appointments.Api.Models.Appointment)">
+            <summary>
+            Creates a new appointment
+            </summary>
+            <param name="userName">collaborater username</param>
+            <param name="appointment">The appointment to create</param>
+            <returns>The newly created appointment</returns>
         </member>
         <member name="T:Appointments.Api.Controllers.HomeController">
             <summary>

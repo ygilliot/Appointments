@@ -40,6 +40,6 @@ namespace Appointments.Api.Areas.Admin.Models {
             [Key]
             [Display(Name = "User Name")]
             public string UserName { get; set; }
-            public IEnumerable colUserRoleDTO { get; set; }
+            public IEnumerable<UserRoleDTO> colUserRoleDTO { get; set; }
         }
 }

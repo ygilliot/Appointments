@@ -3,13 +3,13 @@
 @using X.PagedList;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css"/>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Admin";
 }
 
-<h2>Welcome oh mighty admin!!</h2>
+<h2>Users</h2>
 <p>
-    @Html.ActionLink("Create New", "Create", null, new { @class ="btn btn-default"})
-    @Html.ActionLink("Edit Roles", "ViewAllRoles", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Create New", "Add", null, new { @class ="btn btn-default"})
+    @Html.ActionLink("Edit Roles", "Index","Role", null, new { @class = "btn btn-default" })
 </p>
 <br/>
 
@@ -35,7 +35,7 @@
             <td>@item.Email</td>
             <td>@item.LockoutEndDateUtc</td>
             <td>
-                @Html.ActionLink("Edit","EditUser", new { userName = item.UserName}) |
+                @Html.ActionLink("Edit","Edit", new { userName = item.UserName}) |
                 @if(item.UserName.ToLower() != this.User.Identity.Name.ToLower()) {
                     @Html.ActionLink("Delete","DeleteUser", new { userName = item.UserName}, new { onclick ="return confirm('Are you sure you wish to delete this user?');" })
                 }
