@@ -867,6 +867,11 @@
             Appointment start date and time
             </summary>
         </member>
+        <member name="P:Appointments.Api.Models.Appointment.Note">
+            <summary>
+            Client can left a note to the Collaborater
+            </summary>
+        </member>
         <member name="T:Appointments.Api.Models.DTO.AppointmentDTO">
             <summary>
             Appointment transportation model
@@ -895,6 +900,11 @@
         <member name="P:Appointments.Api.Models.DTO.AppointmentDTO.EndDate">
             <summary>
             Appointment start date and time
+            </summary>
+        </member>
+        <member name="P:Appointments.Api.Models.DTO.AppointmentDTO.Note">
+            <summary>
+            Client can left a note to the Collaborater
             </summary>
         </member>
         <member name="T:Appointments.Api.Models.DTO.AppointmentDTOExtension">
@@ -939,6 +949,18 @@
             <summary>
             Last Name
             </summary>
+        </member>
+        <member name="T:Appointments.Api.Models.DTO.PersonDTOExtension">
+            <summary>
+            Extension methods for PersonDTO class
+            </summary>
+        </member>
+        <member name="M:Appointments.Api.Models.DTO.PersonDTOExtension.ToModel(Appointments.Api.Models.DTO.PersonDTO)">
+            <summary>
+            Cast a DTO to its model version
+            </summary>
+            <param name="dto">object to cast</param>
+            <returns>model version</returns>
         </member>
         <member name="T:Appointments.Api.Models.DTO.PersonExtendedDTO">
             <summary>

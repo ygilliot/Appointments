@@ -39,7 +39,8 @@ namespace Appointments.Tests.Mocks {
                 Collaborater = PeopleRepository.basePeople.FirstOrDefault(p=> p.ApplicationUser.UserName == "admin@admin.com"),
                 StartDate = DateTime.UtcNow.AddHours(5),
                 EndDate = DateTime.UtcNow.AddHours(7),
-                Status = AppointmentStatus.Valid
+                Status = AppointmentStatus.Valid,
+                Note = "plata o plomo"
             },
             new Appointment() {
                 Id = 3,
@@ -49,7 +50,8 @@ namespace Appointments.Tests.Mocks {
                 Collaborater = PeopleRepository.basePeople.FirstOrDefault(p=> p.ApplicationUser.UserName == "admin@admin.com"),
                 StartDate = DateTime.UtcNow.AddDays(1),
                 EndDate = DateTime.UtcNow.AddDays(1).AddHours(3),
-                Status = AppointmentStatus.Valid
+                Status = AppointmentStatus.Valid,
+                Note = "say my name"
             },
             new Appointment() {
                 Id = 4,
@@ -59,7 +61,8 @@ namespace Appointments.Tests.Mocks {
                 Collaborater = PeopleRepository.basePeople.FirstOrDefault(p=> p.ApplicationUser.UserName == "admin@admin.com"),
                 StartDate = DateTime.UtcNow.AddDays(1),
                 EndDate = DateTime.UtcNow.AddDays(1).AddHours(3),
-                Status = AppointmentStatus.Removed
+                Status = AppointmentStatus.Removed,
+                Note = "b*tch"
             },
             new Appointment() {
                 Id = 5,

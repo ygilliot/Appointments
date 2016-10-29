@@ -301,6 +301,10 @@
     <Compile Include="Migrations\201610191229208_Appointments_foreign_keys.Designer.cs">
       <DependentUpon>201610191229208_Appointments_foreign_keys.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610291759557_Add_Appointment_Note.cs" />
+    <Compile Include="Migrations\201610291759557_Add_Appointment_Note.Designer.cs">
+      <DependentUpon>201610291759557_Add_Appointment_Note.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -448,6 +452,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610191229208_Appointments_foreign_keys.resx">
       <DependentUpon>201610191229208_Appointments_foreign_keys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610291759557_Add_Appointment_Note.resx">
+      <DependentUpon>201610291759557_Add_Appointment_Note.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

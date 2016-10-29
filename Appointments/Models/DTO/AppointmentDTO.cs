@@ -42,6 +42,11 @@ namespace Appointments.Api.Models.DTO {
         /// </summary>
         [Required]
         public DateTime? EndDate { get; set; }
+
+        /// <summary>
+        /// Client can left a note to the Collaborater
+        /// </summary>
+        public string Note { get; set; }
         #endregion
 
         #region Constructor
@@ -54,6 +59,7 @@ namespace Appointments.Api.Models.DTO {
             Status = a.Status;
             StartDate = a.StartDate;
             EndDate = a.EndDate;
+            Note = a.Note;
         }
         #endregion
 
@@ -84,7 +90,8 @@ namespace Appointments.Api.Models.DTO {
                 Collaborater = collaborater,
                 StartDate = dto.StartDate,
                 EndDate = dto.EndDate,
-                Status = dto.Status
+                Status = dto.Status,
+                Note = dto.Note
             };
         }
         #endregion

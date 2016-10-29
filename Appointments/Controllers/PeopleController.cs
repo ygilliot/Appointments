@@ -2,6 +2,7 @@
 using Appointments.Api.Models.DTO;
 using Appointments.Api.Repositories;
 using Appointments.Api.Utils;
+using Appointments.Api.Utils.Filters;
 using Appointments.Api.Versioning;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.OData;
+using Microsoft.AspNet.Identity;
 
 namespace Appointments.Api.Controllers {
     /// <summary>
@@ -70,5 +72,30 @@ namespace Appointments.Api.Controllers {
 
             return NotFound();
         }
+
+        /// <summary>
+        /// Creates a new Person
+        /// </summary>
+        /// <param name="person">The person to create</param>
+        /// <returns>The newly created person</returns>
+        [ValidateModel]
+        [Authorize(Roles = AppRoles.Admin)]
+        [VersionedRoute("api/{version}/People", "1.0")]
+        [VersionedRoute("api/People")]
+        public IHttpActionResult Post(PersonDTO person) {
+            
+            //Cast for database storage
+            Person model = person.ToModel(User.Identity.GetUserId());
+
+            //Insert in db
+            peopleRepository.Add(model);
+
+            //Cast for transport
+            PersonDTO result = new PersonDTO(model);
+
+            return Ok(result);
+        }
+
+        //TODO: Put method
     }
 }

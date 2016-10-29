@@ -42,6 +42,11 @@ namespace Appointments.Api.Models.DTO {
         /// Last Name
         /// </summary>
         public string LastName { get; set; }
+
+        /// <summary>
+        /// Mr. Ms. Mrs.
+        /// </summary>
+        public string Gender { get; set; }
         #endregion
 
         #region UserAddress

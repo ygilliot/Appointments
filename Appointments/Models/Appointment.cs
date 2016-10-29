@@ -43,6 +43,11 @@ namespace Appointments.Api.Models {
         /// Appointment start date and time
         /// </summary>
         public DateTime? EndDate { get; set; }
+
+        /// <summary>
+        /// Client can left a note to the Collaborater
+        /// </summary>
+        public string Note { get; set; }
     }
     
     public enum AppointmentStatus {

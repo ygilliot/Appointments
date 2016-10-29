@@ -71,7 +71,8 @@ namespace Appointments.Tests.Controllers {
                 Collaborater = new PersonDTO(peopleRep.Repo.All().FirstOrDefault(o => o.ApplicationUser.UserName == "admin@admin.com")),
                 StartDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow.AddHours(2),
-                Status = AppointmentStatus.Pending
+                Status = AppointmentStatus.Pending,
+                Note = "plata o plomo"
             };
 
             // Act
