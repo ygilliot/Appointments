@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Appointments.Api.Repositories;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,38 @@ namespace Appointments.Api.Models.DTO {
             Status = a.Status;
             StartDate = a.StartDate;
             EndDate = a.EndDate;
+        }
+        #endregion
+
+        
+    }
+
+    /// <summary>
+    /// Extension methods for AppointmentDTO class
+    /// </summary>
+    public static class AppointmentDTOExtension {
+        #region Transformation to database model
+        /// <summary>
+        /// Cast a DTO to its model version
+        /// </summary>
+        /// <param name="dto">object to cast</param>
+        /// <param name="personRepo">repository used to convert the DTO</param>
+        /// <returns>model version</returns>
+        public static Appointment ToModel(this AppointmentDTO dto, IRepository<Person> personRepo) {
+
+            var client = personRepo.All().FirstOrDefault(p => p.ApplicationUser.UserName == dto.Client.UserName);
+            var collaborater = personRepo.All().FirstOrDefault(p => p.ApplicationUser.UserName == dto.Collaborater.UserName);
+
+            return new Appointment() {
+                Id = dto.Id,
+                ClientId = client.Id,
+                Client = client,
+                CollaboraterId = collaborater.Id,
+                Collaborater = collaborater,
+                StartDate = dto.StartDate,
+                EndDate = dto.EndDate,
+                Status = dto.Status
+            };
         }
         #endregion
     }

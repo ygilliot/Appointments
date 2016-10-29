@@ -85,7 +85,7 @@ namespace Appointments.Api.Repositories {
         /// </summary>
         /// <param name="Id">The value of the primary key for the entity to be found</param>
         /// <returns>The entity found, or null</returns>
-        public T GetById(long Id) {
+        public T GetById(dynamic Id) {
             return DbSet.Find(Id);
         }
 

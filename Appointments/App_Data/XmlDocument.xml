@@ -644,11 +644,12 @@
             Appointments Controller
             </summary>
         </member>
-        <member name="M:Appointments.Api.Controllers.AppointmentsController.#ctor(Appointments.Api.Repositories.IRepository{Appointments.Api.Models.Appointment})">
+        <member name="M:Appointments.Api.Controllers.AppointmentsController.#ctor(Appointments.Api.Repositories.IRepository{Appointments.Api.Models.Appointment},Appointments.Api.Repositories.IRepository{Appointments.Api.Models.Person})">
             <summary>
             Initialize Controller
             </summary>
             <param name="appointmentsRepository">repository of appointments</param>
+            <param name="peopleRepository">repository of people</param>
         </member>
         <member name="M:Appointments.Api.Controllers.AppointmentsController.Get">
             <summary>
@@ -664,7 +665,7 @@
             <param name="userName">collaborater username</param>
             <returns></returns>
         </member>
-        <member name="M:Appointments.Api.Controllers.AppointmentsController.Post(System.String,Appointments.Api.Models.Appointment)">
+        <member name="M:Appointments.Api.Controllers.AppointmentsController.Post(System.String,Appointments.Api.Models.DTO.AppointmentDTO)">
             <summary>
             Creates a new appointment
             </summary>
@@ -895,6 +896,19 @@
             <summary>
             Appointment start date and time
             </summary>
+        </member>
+        <member name="T:Appointments.Api.Models.DTO.AppointmentDTOExtension">
+            <summary>
+            Extension methods for AppointmentDTO class
+            </summary>
+        </member>
+        <member name="M:Appointments.Api.Models.DTO.AppointmentDTOExtension.ToModel(Appointments.Api.Models.DTO.AppointmentDTO,Appointments.Api.Repositories.IRepository{Appointments.Api.Models.Person})">
+            <summary>
+            Cast a DTO to its model version
+            </summary>
+            <param name="dto">object to cast</param>
+            <param name="personRepo">repository used to convert the DTO</param>
+            <returns>model version</returns>
         </member>
         <member name="T:Appointments.Api.Models.DTO.PersonDTO">
             <summary>
@@ -1162,7 +1176,7 @@
             </summary>
             <param name="entity">element with updated values</param>
         </member>
-        <member name="M:Appointments.Api.Repositories.GenericRepository`1.GetById(System.Int64)">
+        <member name="M:Appointments.Api.Repositories.GenericRepository`1.GetById(System.Object)">
             <summary>
             Finds an entity with the given primary key values. If an entity with the given
                 primary key values exists in the context, then it is returned immediately without
@@ -1222,7 +1236,7 @@
             </summary>
             <param name="entity">element with updated values</param>
         </member>
-        <member name="M:Appointments.Api.Repositories.IRepository`1.GetById(System.Int64)">
+        <member name="M:Appointments.Api.Repositories.IRepository`1.GetById(System.Object)">
             <summary>
             Finds an entity with the given primary key values. If an entity with the given
                 primary key values exists in the context, then it is returned immediately without

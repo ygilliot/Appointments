@@ -22,13 +22,16 @@ namespace Appointments.Api.Controllers {
     [Authorize]
     public class AppointmentsController : ApiHubController<CalendarHub> {
         private readonly IRepository<Appointment> appointmentsRepository;
+        private readonly IRepository<Person> peopleRepository;
 
         /// <summary>
         /// Initialize Controller
         /// </summary>
         /// <param name="appointmentsRepository">repository of appointments</param>
-        public AppointmentsController(IRepository<Appointment> appointmentsRepository) {
+        /// <param name="peopleRepository">repository of people</param>
+        public AppointmentsController(IRepository<Appointment> appointmentsRepository, IRepository<Person> peopleRepository) {
             this.appointmentsRepository = appointmentsRepository;
+            this.peopleRepository = peopleRepository;
         }
 
         /// <summary>
@@ -103,16 +106,22 @@ namespace Appointments.Api.Controllers {
         [ValidateModel]
         [VersionedRoute("api/{version}/Collaboraters/{userName}/Appointments", "1.0")]
         [VersionedRoute("api/Collaboraters/{userName}/Appointments")]
-        public IHttpActionResult Post(string userName, Appointment appointment) {
+        public IHttpActionResult Post(string userName, AppointmentDTO appointment) {
 
-            //if(ModelState.IsValid)
-            appointmentsRepository.Add(appointment);
+            //Cast for database storage
+            Appointment model = appointment.ToModel(peopleRepository);
+
+            //Insert in db
+            appointmentsRepository.Add(model);
+
+            //Cast for transport
+            AppointmentDTO result = new AppointmentDTO(model);
 
             //Notify SignalR subscribers
             var subscribed = Hub.Clients.Group(userName);
-            subscribed.addItem(appointment);
+            subscribed.addItem(result);
 
-            return Ok(appointment);
+            return Ok(result);
         }
     }
 }

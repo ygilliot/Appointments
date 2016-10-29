@@ -18,7 +18,7 @@ namespace Appointments.Api.Tests.Controllers {
     [TestClass]
     public class PeopleControllerTest {
         [TestMethod]
-        public void Get() {
+        public void GetPeople() {
             var repo = new Mock<IRepository<Person>>();
             // Arrange
             PeopleRepository rep = new PeopleRepository();
@@ -35,7 +35,7 @@ namespace Appointments.Api.Tests.Controllers {
         }
 
         [TestMethod]
-        public void GetById() {
+        public void GetPeopleById() {
             var repo = new Mock<IRepository<Person>>();
             // Arrange
             PeopleRepository rep = new PeopleRepository();

@@ -43,7 +43,7 @@ namespace Appointments.Api.Repositories {
         /// </summary>
         /// <param name="Id">The value of the primary key for the entity to be found</param>
         /// <returns>The entity found, or null</returns>
-        T GetById(long Id);
+        T GetById(dynamic Id);
 
         /// <summary>
         /// Returns all entities
