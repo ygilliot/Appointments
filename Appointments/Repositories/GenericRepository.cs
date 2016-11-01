@@ -39,9 +39,7 @@ namespace Appointments.Api.Repositories {
         /// </summary>
         /// <param name="entity">element to add</param>
         public void Add(T entity) {
-            //DbSet.Add(entity);
-            //Context.SaveChanges();
-            throw new NotImplementedException();
+            DbSet.Add(entity);
         }
 
         /// <summary>
@@ -49,15 +47,16 @@ namespace Appointments.Api.Repositories {
         /// </summary>
         /// <param name="entity">element to delete</param>
         public void Delete(T entity) {
-            throw new NotImplementedException();
+            DbSet.Remove(entity);
         }
 
         /// <summary>
         /// Delete an element by its identifier
         /// </summary>
         /// <param name="id">identifier of the element</param>
-        public void Delete(int id) {
-            throw new NotImplementedException();
+        public void Delete(dynamic id) {
+            var entity = DbSet.Find(id);
+            DbSet.Remove(entity);
         }
 
         /// <summary>
@@ -66,13 +65,6 @@ namespace Appointments.Api.Repositories {
         /// <param name="entity">element with updated values</param>
         public void Update(T entity) {
             Context.Entry(entity).State = EntityState.Modified;
-
-            try {
-                Context.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException) {
-                throw;
-            }
         }
 
         /// <summary>
@@ -104,6 +96,18 @@ namespace Appointments.Api.Repositories {
         /// <returns></returns>
         public IEnumerable<T> Find(Func<T, bool> predicate) {
             return DbSet.Where(predicate);
+        }
+
+        /// <summary>
+        /// Save Changes in database
+        /// </summary>
+        public void Save() {
+            try {
+                Context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException) {
+                throw;
+            }
         }
         #endregion
 

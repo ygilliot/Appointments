@@ -103,6 +103,7 @@ namespace Appointments.Api.Controllers {
         /// <param name="userName">collaborater username</param>
         /// <param name="appointment">The appointment to create</param>
         /// <returns>The newly created appointment</returns>
+        [HttpPost]
         [ValidateModel]
         [VersionedRoute("api/{version}/Collaboraters/{userName}/Appointments", "1.0")]
         [VersionedRoute("api/Collaboraters/{userName}/Appointments")]
@@ -113,6 +114,7 @@ namespace Appointments.Api.Controllers {
 
             //Insert in db
             appointmentsRepository.Add(model);
+            appointmentsRepository.Save();
 
             //Cast for transport
             AppointmentDTO result = new AppointmentDTO(model);

@@ -25,7 +25,7 @@ namespace Appointments.Api.Repositories {
         /// Delete an element by its identifier
         /// </summary>
         /// <param name="id">identifier of the element</param>
-        void Delete(int id);
+        void Delete(dynamic id);
 
         /// <summary>
         /// Updates an existing element
@@ -57,5 +57,10 @@ namespace Appointments.Api.Repositories {
         /// <param name="predicate">predicate to filter entities</param>
         /// <returns></returns>
         IEnumerable<T> Find(Func<T, bool> predicate);
+
+        /// <summary>
+        /// Save changes in database
+        /// </summary>
+        void Save();
     }
 }

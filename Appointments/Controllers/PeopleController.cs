@@ -12,6 +12,8 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.OData;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System.Web;
 
 namespace Appointments.Api.Controllers {
     /// <summary>
@@ -78,24 +80,59 @@ namespace Appointments.Api.Controllers {
         /// </summary>
         /// <param name="person">The person to create</param>
         /// <returns>The newly created person</returns>
+        [HttpPost]
         [ValidateModel]
         [Authorize(Roles = AppRoles.Admin)]
         [VersionedRoute("api/{version}/People", "1.0")]
         [VersionedRoute("api/People")]
-        public IHttpActionResult Post(PersonDTO person) {
-            
+        public IHttpActionResult Post(PersonExtendedDTO person) {
+            //Get user associated
+            ApplicationUser user = Request.GetOwinContext().GetUserManager<ApplicationUserManager>().FindByName(person.UserName);
+
             //Cast for database storage
-            Person model = person.ToModel(User.Identity.GetUserId());
+            Person model = person.ToModel(user);
 
             //Insert in db
             peopleRepository.Add(model);
+            peopleRepository.Save();
 
             //Cast for transport
-            PersonDTO result = new PersonDTO(model);
+            PersonExtendedDTO result = new PersonExtendedDTO(model);
 
             return Ok(result);
         }
 
-        //TODO: Put method
+
+        /// <summary>
+        /// Updates an existing Person by replacing ALL values
+        /// </summary>
+        /// <param name="person">The person with updated properties</param>
+        /// <returns>The updated person</returns>
+        [HttpPut]
+        [ValidateModel]
+        [Authorize] //Everyone can update at least himself/herself
+        [VersionedRoute("api/{version}/People", "1.0")]
+        [VersionedRoute("api/People")]
+        public IHttpActionResult Put(PersonExtendedDTO person) {
+            //If not admin, user can only edit himself/herself
+            if (!User.IsInRole(AppRoles.Admin) && person.UserName != User.Identity.GetUserName())
+                return BadRequest("You do not have sufficient rights to edit anyone but yourself");
+            
+            //Get user associated
+            ApplicationUser user = Request.GetOwinContext().GetUserManager<ApplicationUserManager>().FindByName(person.UserName);
+
+            //Cast for database storage
+            Person model = person.ToModel(user);
+
+            //Insert in db
+            peopleRepository.Update(model);
+            peopleRepository.Save();
+
+            //Cast for transport
+            PersonExtendedDTO result = new PersonExtendedDTO(model);
+
+            return Ok(result);
+        }
+        
     }
 }

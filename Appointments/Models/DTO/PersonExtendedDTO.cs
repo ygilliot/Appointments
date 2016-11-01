@@ -91,6 +91,7 @@ namespace Appointments.Api.Models.DTO {
             PhoneNumber = p.ApplicationUser.PhoneNumber;
             FirstName = p.FirstName;
             LastName = p.LastName;
+            Gender = p.Gender;
 
             //If Address is available fill model
             if (p.Address != null) {
@@ -101,6 +102,47 @@ namespace Appointments.Api.Models.DTO {
                 State = p.Address.State;
                 Country = p.Address.Country;
             }
+        }
+        #endregion
+    }
+
+    /// <summary>
+    /// Extension methods for PersonExtendedDTO class
+    /// </summary>
+    public static class PersonExtendedDTOExtension {
+        #region Transformation to database model
+        /// <summary>
+        /// Cast a DTO to its model version
+        /// </summary>
+        /// <param name="dto">object to cast</param>
+        /// <param name="user">user</param>
+        /// <returns>model version</returns>
+        public static Person ToModel(this PersonExtendedDTO dto, ApplicationUser user) {
+
+            //override Application user with new values
+            user.Email = dto.UserName;
+            user.Email = dto.Email;
+            user.PhoneNumber = dto.PhoneNumber;
+
+            //override User Address
+            if (user.Person.Address == null)
+                user.Person.Address = new UserAddress();
+            user.Person.Address.Id = user.Id;
+            user.Person.Address.Address1 = dto.Address1;
+            user.Person.Address.Address2 = dto.Address2;
+            user.Person.Address.City = dto.City;
+            user.Person.Address.Zipcode = dto.ZipCode;
+            user.Person.Address.State = dto.State;
+            user.Person.Address.Country = dto.Country;
+            
+            return new Person() {
+                Id = user.Id,
+                ApplicationUser = user,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Gender = dto.Gender,
+                Address = user.Person.Address
+            };
         }
         #endregion
     }

@@ -716,6 +716,20 @@
             <param name="username">email</param>
             <returns></returns>
         </member>
+        <member name="M:Appointments.Api.Controllers.PeopleController.Post(Appointments.Api.Models.DTO.PersonExtendedDTO)">
+            <summary>
+            Creates a new Person
+            </summary>
+            <param name="person">The person to create</param>
+            <returns>The newly created person</returns>
+        </member>
+        <member name="M:Appointments.Api.Controllers.PeopleController.Put(Appointments.Api.Models.DTO.PersonExtendedDTO)">
+            <summary>
+            Updates an existing Person by replacing ALL values
+            </summary>
+            <param name="person">The person with updated properties</param>
+            <returns>The updated person</returns>
+        </member>
         <member name="T:Appointments.Api.Models.AddExternalLoginBindingModel">
             <summary>
             AddExternalLoginBindingModel
@@ -950,16 +964,22 @@
             Last Name
             </summary>
         </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonDTO.Gender">
+            <summary>
+            Mr. Ms. Mrs.
+            </summary>
+        </member>
         <member name="T:Appointments.Api.Models.DTO.PersonDTOExtension">
             <summary>
             Extension methods for PersonDTO class
             </summary>
         </member>
-        <member name="M:Appointments.Api.Models.DTO.PersonDTOExtension.ToModel(Appointments.Api.Models.DTO.PersonDTO)">
+        <member name="M:Appointments.Api.Models.DTO.PersonDTOExtension.ToModel(Appointments.Api.Models.DTO.PersonDTO,System.String)">
             <summary>
             Cast a DTO to its model version
             </summary>
             <param name="dto">object to cast</param>
+            <param name="userId">user identifier</param>
             <returns>model version</returns>
         </member>
         <member name="T:Appointments.Api.Models.DTO.PersonExtendedDTO">
@@ -992,6 +1012,11 @@
             Last Name
             </summary>
         </member>
+        <member name="P:Appointments.Api.Models.DTO.PersonExtendedDTO.Gender">
+            <summary>
+            Mr. Ms. Mrs.
+            </summary>
+        </member>
         <member name="P:Appointments.Api.Models.DTO.PersonExtendedDTO.Address1">
             <summary>
             First line of Address
@@ -1021,6 +1046,19 @@
             <summary>
             Country
             </summary>
+        </member>
+        <member name="T:Appointments.Api.Models.DTO.PersonExtendedDTOExtension">
+            <summary>
+            Extension methods for PersonExtendedDTO class
+            </summary>
+        </member>
+        <member name="M:Appointments.Api.Models.DTO.PersonExtendedDTOExtension.ToModel(Appointments.Api.Models.DTO.PersonExtendedDTO,Appointments.Api.Models.ApplicationUser)">
+            <summary>
+            Cast a DTO to its model version
+            </summary>
+            <param name="dto">object to cast</param>
+            <param name="user">user</param>
+            <returns>model version</returns>
         </member>
         <member name="T:Appointments.Api.Models.ApplicationUser">
             <summary>
@@ -1186,7 +1224,7 @@
             </summary>
             <param name="entity">element to delete</param>
         </member>
-        <member name="M:Appointments.Api.Repositories.GenericRepository`1.Delete(System.Int32)">
+        <member name="M:Appointments.Api.Repositories.GenericRepository`1.Delete(System.Object)">
             <summary>
             Delete an element by its identifier
             </summary>
@@ -1223,6 +1261,11 @@
             <param name="predicate">predicate to filter entities</param>
             <returns></returns>
         </member>
+        <member name="M:Appointments.Api.Repositories.GenericRepository`1.Save">
+            <summary>
+            Save Changes in database
+            </summary>
+        </member>
         <member name="M:Appointments.Api.Repositories.GenericRepository`1.Dispose">
             <summary>
             Dispose the repository
@@ -1246,7 +1289,7 @@
             </summary>
             <param name="entity">element to delete</param>
         </member>
-        <member name="M:Appointments.Api.Repositories.IRepository`1.Delete(System.Int32)">
+        <member name="M:Appointments.Api.Repositories.IRepository`1.Delete(System.Object)">
             <summary>
             Delete an element by its identifier
             </summary>
@@ -1282,6 +1325,11 @@
             </summary>
             <param name="predicate">predicate to filter entities</param>
             <returns></returns>
+        </member>
+        <member name="M:Appointments.Api.Repositories.IRepository`1.Save">
+            <summary>
+            Save changes in database
+            </summary>
         </member>
         <member name="T:Appointments.Api.Utils.AppRoles">
             <summary>

@@ -43,6 +43,12 @@ namespace Appointments.Tests.Mocks {
 
             //Mock Add() method
             this.repo.Setup(x => x.Add(It.IsAny<Person>()));
+
+            //Mock Update() method
+            this.repo.Setup(x => x.Update(It.IsAny<Person>()));
+
+            //Mock Save() method
+            this.repo.Setup(x => x.Save());
         }
         #endregion
 
