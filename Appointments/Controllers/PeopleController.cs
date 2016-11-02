@@ -121,6 +121,9 @@ namespace Appointments.Api.Controllers {
             //Get user associated
             ApplicationUser user = Request.GetOwinContext().GetUserManager<ApplicationUserManager>().FindByName(person.UserName);
 
+            if (user == null)
+                return NotFound();
+
             //Cast for database storage
             Person model = person.ToModel(user);
 
@@ -133,6 +136,41 @@ namespace Appointments.Api.Controllers {
 
             return Ok(result);
         }
-        
+
+        /// <summary>
+        /// Updates an existing Person by replacing only not null properties
+        /// </summary>
+        /// <param name="person">The person with updated properties</param>
+        /// <returns>The updated person</returns>
+        [HttpPatch]
+        [ValidateModel]
+        [Authorize] //Everyone can update at least himself/herself
+        [VersionedRoute("api/{version}/People", "1.0")]
+        [VersionedRoute("api/People")]
+        public IHttpActionResult Patch(PersonExtendedDTO person) {
+            //WARNING: from the moment Person has a non-nullable property, replace PersonExtendedDTO by PersonExtendedPatchDTO
+            //If not admin, user can only edit himself/herself
+            if (!User.IsInRole(AppRoles.Admin) && person.UserName != User.Identity.GetUserName())
+                return BadRequest("You do not have sufficient rights to edit anyone but yourself");
+
+            //Get user associated
+            ApplicationUser user = Request.GetOwinContext().GetUserManager<ApplicationUserManager>().FindByName(person.UserName);
+
+            if (user == null)
+                return NotFound();
+
+            //Cast for database storage
+            Person model = person.ToPatchModel(user);
+
+            //Insert in db
+            peopleRepository.Update(model);
+            peopleRepository.Save();
+
+            //Cast for transport
+            PersonExtendedDTO result = new PersonExtendedDTO(model);
+
+            return Ok(result);
+        }
+
     }
 }

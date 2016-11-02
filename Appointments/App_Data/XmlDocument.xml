@@ -730,6 +730,13 @@
             <param name="person">The person with updated properties</param>
             <returns>The updated person</returns>
         </member>
+        <member name="M:Appointments.Api.Controllers.PeopleController.Patch(Appointments.Api.Models.DTO.PersonExtendedDTO)">
+            <summary>
+            Updates an existing Person by replacing only not null properties
+            </summary>
+            <param name="person">The person with updated properties</param>
+            <returns>The updated person</returns>
+        </member>
         <member name="T:Appointments.Api.Models.AddExternalLoginBindingModel">
             <summary>
             AddExternalLoginBindingModel
@@ -1055,6 +1062,14 @@
         <member name="M:Appointments.Api.Models.DTO.PersonExtendedDTOExtension.ToModel(Appointments.Api.Models.DTO.PersonExtendedDTO,Appointments.Api.Models.ApplicationUser)">
             <summary>
             Cast a DTO to its model version
+            </summary>
+            <param name="dto">object to cast</param>
+            <param name="user">user</param>
+            <returns>model version</returns>
+        </member>
+        <member name="M:Appointments.Api.Models.DTO.PersonExtendedDTOExtension.ToPatchModel(Appointments.Api.Models.DTO.PersonExtendedDTO,Appointments.Api.Models.ApplicationUser)">
+            <summary>
+            Cast a DTO to its patched model version
             </summary>
             <param name="dto">object to cast</param>
             <param name="user">user</param>

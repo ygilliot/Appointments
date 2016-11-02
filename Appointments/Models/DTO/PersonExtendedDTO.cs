@@ -120,7 +120,7 @@ namespace Appointments.Api.Models.DTO {
         public static Person ToModel(this PersonExtendedDTO dto, ApplicationUser user) {
 
             //override Application user with new values
-            user.Email = dto.UserName;
+            user.UserName = dto.UserName;
             user.Email = dto.Email;
             user.PhoneNumber = dto.PhoneNumber;
 
@@ -145,6 +145,44 @@ namespace Appointments.Api.Models.DTO {
             user.Person.Address.Zipcode = dto.ZipCode;
             user.Person.Address.State = dto.State;
             user.Person.Address.Country = dto.Country;
+
+            return user.Person;
+        }
+        #endregion
+
+        #region Transformation to patch model
+        /// <summary>
+        /// Cast a DTO to its patched model version
+        /// </summary>
+        /// <param name="dto">object to cast</param>
+        /// <param name="user">user</param>
+        /// <returns>model version</returns>
+        public static Person ToPatchModel(this PersonExtendedDTO dto, ApplicationUser user) {
+            //override Application user with new values
+            user.UserName = dto.UserName ?? user.UserName;
+            user.Email = dto.Email ?? user.Email;
+            user.PhoneNumber = dto.PhoneNumber ?? user.PhoneNumber;
+
+            //override Person
+            if (user.Person == null)
+                user.Person = new Person();
+            user.Person.Id = user.Id;
+            user.Person.ApplicationUser = user;
+            user.Person.FirstName = dto.FirstName ?? user.Person.FirstName;
+            user.Person.LastName = dto.LastName ?? user.Person.LastName;
+            user.Person.Gender = dto.Gender ?? user.Person.Gender;
+            user.Person.Address = user.Person.Address;
+            
+            //override User Address
+            if (user.Person.Address == null)
+                user.Person.Address = new UserAddress();
+            user.Person.Address.Id = user.Id ?? user.Person.Address.Id;
+            user.Person.Address.Address1 = dto.Address1 ?? user.Person.Address.Address1;
+            user.Person.Address.Address2 = dto.Address2 ?? user.Person.Address.Address2;
+            user.Person.Address.City = dto.City ?? user.Person.Address.City;
+            user.Person.Address.Zipcode = dto.ZipCode ?? user.Person.Address.Zipcode;
+            user.Person.Address.State = dto.State ?? user.Person.Address.State;
+            user.Person.Address.Country = dto.Country ?? user.Person.Address.Country;
 
             return user.Person;
         }
