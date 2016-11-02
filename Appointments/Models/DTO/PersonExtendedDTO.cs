@@ -124,6 +124,17 @@ namespace Appointments.Api.Models.DTO {
             user.Email = dto.Email;
             user.PhoneNumber = dto.PhoneNumber;
 
+            //override Person
+            if (user.Person == null)
+                user.Person = new Person();
+            user.Person.Id = user.Id;
+            user.Person.ApplicationUser = user;
+            user.Person.FirstName = dto.FirstName;
+            user.Person.LastName = dto.LastName;
+            user.Person.Gender = dto.Gender;
+            user.Person.Address = user.Person.Address;
+            
+
             //override User Address
             if (user.Person.Address == null)
                 user.Person.Address = new UserAddress();
@@ -134,15 +145,8 @@ namespace Appointments.Api.Models.DTO {
             user.Person.Address.Zipcode = dto.ZipCode;
             user.Person.Address.State = dto.State;
             user.Person.Address.Country = dto.Country;
-            
-            return new Person() {
-                Id = user.Id,
-                ApplicationUser = user,
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
-                Gender = dto.Gender,
-                Address = user.Person.Address
-            };
+
+            return user.Person;
         }
         #endregion
     }

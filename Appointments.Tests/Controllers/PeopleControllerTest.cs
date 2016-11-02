@@ -18,6 +18,7 @@ using System.Security.Claims;
 using Microsoft.Owin;
 using Microsoft.Owin.Testing;
 using Appointments.Tests.OwinTest;
+using Microsoft.AspNet.Identity;
 
 namespace Appointments.Api.Tests.Controllers {
     [TestClass]
@@ -57,37 +58,53 @@ namespace Appointments.Api.Tests.Controllers {
             Assert.IsNotNull(contentResult.Content);
             Assert.AreEqual("Albuquerque", contentResult.Content.City);
         }
+        
+        [TestMethod]
+        public void CreatePerson() {
+            #region Owin Context
+            var owinMock = new Mock<IOwinContext>();
 
-        ////Cannot test because of Owin Context
-        //[TestMethod]
-        //public void CreatePerson() {
-        //    var repo = new Mock<IRepository<Person>>();
-        //    // Arrange
-        //    PeopleRepository rep = new PeopleRepository();
-        //    PeopleController controller = new PeopleController(rep.Repo);
-        //    controller.Request = new HttpRequestMessage();
-        //    controller.Configuration = new HttpConfiguration();
-        //    PersonExtendedDTO person = new PersonExtendedDTO() {
-        //        FirstName = "Pablo Emilio",
-        //        LastName = "Escobar Gaviria",
-        //        Gender = "Mr.",
-        //        Address1 = "Hacienda Nápoles",
-        //        City = "Medellín",
-        //        Country = "Colombia",
-        //        UserName = "pablo.escobar@coca.in",
-        //        Email = "pablo.escobar@coca.in",
-        //        PhoneNumber = "012345678"
-        //    };
+            var userStoreMock = new Mock<IUserStore<ApplicationUser>>();
+            userStoreMock.Setup(s => s.FindByNameAsync("pablo.escobar@coca.in")).ReturnsAsync(new ApplicationUser {
+                Id = "ed980470-9c0f-47f7-a967-0adc9eb2325e",
+                Email = "pablo.escobar@coca.in",
+                UserName = "pablo.escobar@coca.in",
+                PhoneNumber = "012345678"
+            });
+            var applicationUserManager = new ApplicationUserManager(userStoreMock.Object);
 
-        //    // Act
-        //    IHttpActionResult result = controller.Post(person);
-        //    var contentResult = result as OkNegotiatedContentResult<PersonExtendedDTO>;
+            owinMock.Setup(o => o.Get<ApplicationUserManager>(It.IsAny<string>())).Returns(applicationUserManager);
+            #endregion
 
-        //    // Assert
-        //    Assert.IsNotNull(contentResult);
-        //    Assert.IsNotNull(contentResult.Content);
-        //    Assert.AreEqual("Medellín", contentResult.Content.City);
-        //}
+            var repo = new Mock<IRepository<Person>>();
+            // Arrange
+            PeopleRepository rep = new PeopleRepository();
+            PeopleController controller = new PeopleController(rep.Repo);
+            controller.Request = new HttpRequestMessage();
+            controller.Request.SetOwinContext(owinMock.Object);
+            controller.Configuration = new HttpConfiguration();
+            controller.User = new ClaimsPrincipal(new GenericPrincipal(new GenericIdentity("admin@admin.com"), new string[] { Utils.AppRoles.Admin }));
+            PersonExtendedDTO person = new PersonExtendedDTO() {
+                FirstName = "Pablo Emilio",
+                LastName = "Escobar Gaviria",
+                Gender = "Mr.",
+                Address1 = "Hacienda Nápoles",
+                City = "Medellín",
+                Country = "Colombia",
+                UserName = "pablo.escobar@coca.in",
+                Email = "pablo.escobar@coca.in",
+                PhoneNumber = "012345678"
+            };
+
+            // Act
+            IHttpActionResult result = controller.Post(person);
+            var contentResult = result as OkNegotiatedContentResult<PersonExtendedDTO>;
+
+            // Assert
+            Assert.IsNotNull(contentResult);
+            Assert.IsNotNull(contentResult.Content);
+            Assert.AreEqual("Medellín", contentResult.Content.City);
+        }
 
         //[TestMethod]
         //public void PutPerson() {
