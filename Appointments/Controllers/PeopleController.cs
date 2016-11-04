@@ -55,7 +55,8 @@ namespace Appointments.Api.Controllers {
                 Email = p.ApplicationUser.Email,
                 PhoneNumber = p.ApplicationUser.PhoneNumber,
                 FirstName = p.FirstName,
-                LastName = p.LastName
+                LastName = p.LastName,
+                Gender = p.Gender
             });
         }
 
@@ -88,6 +89,13 @@ namespace Appointments.Api.Controllers {
         public IHttpActionResult Post(PersonExtendedDTO person) {
             //Get user associated
             ApplicationUser user = Request.GetOwinContext().GetUserManager<ApplicationUserManager>().FindByName(person.UserName);
+
+            #region Validation
+            if (user == null)
+                return NotFound();
+            if (user.Person != null)
+                return BadRequest("Person you try to create already exists!");
+            #endregion
 
             //Cast for database storage
             Person model = person.ToModel(user);

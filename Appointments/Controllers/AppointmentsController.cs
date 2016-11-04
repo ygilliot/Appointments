@@ -51,14 +51,16 @@ namespace Appointments.Api.Controllers {
                     Email = o.Collaborater.ApplicationUser.Email,
                     PhoneNumber = o.Collaborater.ApplicationUser.PhoneNumber,
                     FirstName = o.Collaborater.FirstName,
-                    LastName = o.Collaborater.LastName
+                    LastName = o.Collaborater.LastName,
+                    Gender = o.Collaborater.Gender
                 },
                 Client = new PersonDTO() {
                     UserName = o.Client.ApplicationUser.UserName,
                     Email = o.Client.ApplicationUser.Email,
                     PhoneNumber = o.Client.ApplicationUser.PhoneNumber,
                     FirstName = o.Client.FirstName,
-                    LastName = o.Client.LastName
+                    LastName = o.Client.LastName,
+                    Gender = o.Client.Gender
                 },
                 Status = o.Status,
                 StartDate = o.StartDate,
@@ -82,14 +84,16 @@ namespace Appointments.Api.Controllers {
                     Email = o.Collaborater.ApplicationUser.Email,
                     PhoneNumber = o.Collaborater.ApplicationUser.PhoneNumber,
                     FirstName = o.Collaborater.FirstName,
-                    LastName = o.Collaborater.LastName
+                    LastName = o.Collaborater.LastName,
+                    Gender = o.Collaborater.Gender
                 },
                 Client = new PersonDTO() {
                     UserName = o.Client.ApplicationUser.UserName,
                     Email = o.Client.ApplicationUser.Email,
                     PhoneNumber = o.Client.ApplicationUser.PhoneNumber,
                     FirstName = o.Client.FirstName,
-                    LastName = o.Client.LastName
+                    LastName = o.Client.LastName,
+                    Gender = o.Client.Gender
                 },
                 Status = o.Status,
                 StartDate = o.StartDate,
