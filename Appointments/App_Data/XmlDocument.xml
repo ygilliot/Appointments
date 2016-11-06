@@ -723,19 +723,28 @@
             <param name="person">The person to create</param>
             <returns>The newly created person</returns>
         </member>
-        <member name="M:Appointments.Api.Controllers.PeopleController.Put(Appointments.Api.Models.DTO.PersonExtendedDTO)">
+        <member name="M:Appointments.Api.Controllers.PeopleController.Put(System.String,Appointments.Api.Models.DTO.PersonExtendedDTO)">
             <summary>
             Updates an existing Person by replacing ALL values
             </summary>
             <param name="person">The person with updated properties</param>
+            <param name="username">Person's username</param>
             <returns>The updated person</returns>
         </member>
-        <member name="M:Appointments.Api.Controllers.PeopleController.Patch(Appointments.Api.Models.DTO.PersonExtendedDTO)">
+        <member name="M:Appointments.Api.Controllers.PeopleController.Patch(System.String,Appointments.Api.Models.DTO.PersonExtendedDTO)">
             <summary>
             Updates an existing Person by replacing only not null properties
             </summary>
             <param name="person">The person with updated properties</param>
+            <param name="username">Person's username</param>
             <returns>The updated person</returns>
+        </member>
+        <member name="M:Appointments.Api.Controllers.PeopleController.Delete(System.String)">
+            <summary>
+            Deletes an existing Person
+            </summary>
+            <param name="username">Person's username</param>
+            <returns>No payload</returns>
         </member>
         <member name="T:Appointments.Api.Models.AddExternalLoginBindingModel">
             <summary>

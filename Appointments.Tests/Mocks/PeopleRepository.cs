@@ -47,6 +47,9 @@ namespace Appointments.Tests.Mocks {
             //Mock Update() method
             this.repo.Setup(x => x.Update(It.IsAny<Person>()));
 
+            //Mock Delete() method
+            this.repo.Setup(x => x.Delete(It.IsAny<string>()));
+
             //Mock Save() method
             this.repo.Setup(x => x.Save());
         }

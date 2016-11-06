@@ -145,7 +145,7 @@ namespace Appointments.Api.Tests.Controllers {
             };
 
             // Act
-            IHttpActionResult result = controller.Put(person);
+            IHttpActionResult result = controller.Put(person.UserName, person);
             var contentResult = result as OkNegotiatedContentResult<PersonExtendedDTO>;
 
             // Assert
@@ -189,7 +189,7 @@ namespace Appointments.Api.Tests.Controllers {
             };
 
             // Act
-            IHttpActionResult result = controller.Patch(person);
+            IHttpActionResult result = controller.Patch(person.UserName, person);
             var contentResult = result as OkNegotiatedContentResult<PersonExtendedDTO>;
 
             // Assert
@@ -200,16 +200,39 @@ namespace Appointments.Api.Tests.Controllers {
             Assert.AreEqual("Colombia", contentResult.Content.Country);
         }
 
-        //[TestMethod]
-        //public void Delete()
-        //{
-        //    // Arrange
-        //    ValuesController controller = new ValuesController();
+        [TestMethod]
+        public void Delete() {
+            #region Owin Context
+            var owinMock = new Mock<IOwinContext>();
 
-        //    // Act
-        //    controller.Delete(5);
+            var userStoreMock = new Mock<IUserStore<ApplicationUser>>();
+            userStoreMock.Setup(s => s.FindByNameAsync("pablo.escobar@coca.in")).ReturnsAsync(new ApplicationUser {
+                Id = "ed980470-9c0f-47f7-a967-0adc9eb2325e",
+                Email = "pablo.escobar@coca.in",
+                UserName = "pablo.escobar@coca.in",
+                PhoneNumber = "012345678",
+                Person = new Person() { Id = "ed980470-9c0f-47f7-a967-0adc9eb2325e", FirstName = "Pablo Emilio", LastName = "Escobar Gaviria", Gender = "Mr.", Address = new UserAddress() { Id = "ed980470-9c0f-47f7-a967-0adc9eb2325e", City = "Medellín", Country = "Colombia", }, ApplicationUser = new ApplicationUser() { Id = "ed980470-9c0f-47f7-a967-0adc9eb2325e", UserName = "pablo.escobar@coca.in", Email = "pablo.escobar@coca.in", PhoneNumber = "012345678" } },
+            });
+            var applicationUserManager = new ApplicationUserManager(userStoreMock.Object);
 
-        //    // Assert
-        //}
+            owinMock.Setup(o => o.Get<ApplicationUserManager>(It.IsAny<string>())).Returns(applicationUserManager);
+            #endregion
+
+            var repo = new Mock<IRepository<Person>>();
+            // Arrange
+            PeopleRepository rep = new PeopleRepository();
+            PeopleController controller = new PeopleController(rep.Repo);
+            controller.Request = new HttpRequestMessage();
+            controller.Request.SetOwinContext(owinMock.Object);
+            controller.Configuration = new HttpConfiguration();
+            controller.User = new ClaimsPrincipal(new GenericPrincipal(new GenericIdentity("admin@admin.com"), new string[] { Utils.AppRoles.Admin }));
+            
+            // Act
+            IHttpActionResult result = controller.Delete("pablo.escobar@coca.in");
+            var contentResult = result as OkNegotiatedContentResult<PersonExtendedDTO>;
+
+            // Assert
+            Assert.IsNull(contentResult);
+        }
     }
 }
